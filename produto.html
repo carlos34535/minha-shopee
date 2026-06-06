@@ -1,121 +1,50 @@
-const produtoDetalhe = document.getElementById("produtoDetalhe");
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
 
-async function carregarProdutoDetalhe() {
-  try {
-    const parametros = new URLSearchParams(window.location.search);
-    const idProduto = parametros.get("id");
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    if (!idProduto) {
-      produtoDetalhe.innerHTML = `
-        <p>Produto não encontrado.</p>
-      `;
-      return;
-    }
+  <title>Produto - Achadinhos da Shopee</title>
 
-    const resposta = await fetch("ofertas.csv");
-    const texto = await resposta.text();
+  <link rel="stylesheet" href="./css/style.css">
+</head>
 
-    const produtos = converterCSVParaProdutos(texto);
+<body>
 
-    const produto = produtos.find(item => String(item.id) === String(idProduto));
+  <header class="topo">
+    <div class="container topo-conteudo">
 
-    if (!produto) {
-      produtoDetalhe.innerHTML = `
-        <p>Produto não encontrado.</p>
-      `;
-      return;
-    }
+      <a href="./index.html" class="logo-area">
+        <img src="./assets/logo.png" alt="Logo Achadinhos" class="logo-img">
 
-    mostrarProduto(produto);
-
-  } catch (erro) {
-    console.error("Erro ao carregar produto:", erro);
-
-    produtoDetalhe.innerHTML = `
-      <p>Erro ao carregar o produto.</p>
-    `;
-  }
-}
-
-function converterCSVParaProdutos(textoCSV) {
-  const linhas = textoCSV.trim().split("\n");
-
-  const cabecalho = linhas[0].split(",").map(item => item.trim());
-
-  const produtos = [];
-
-  for (let i = 1; i < linhas.length; i++) {
-    const linha = linhas[i];
-
-    if (!linha.trim()) {
-      continue;
-    }
-
-    const valores = separarLinhaCSV(linha);
-
-    const produto = {};
-
-    cabecalho.forEach((coluna, index) => {
-      produto[coluna] = valores[index] ? valores[index].trim() : "";
-    });
-
-    produto.id = i;
-
-    produtos.push(produto);
-  }
-
-  return produtos;
-}
-
-function separarLinhaCSV(linha) {
-  const resultado = [];
-  let valorAtual = "";
-  let dentroDeAspas = false;
-
-  for (let i = 0; i < linha.length; i++) {
-    const caractere = linha[i];
-
-    if (caractere === '"') {
-      dentroDeAspas = !dentroDeAspas;
-    } else if (caractere === "," && !dentroDeAspas) {
-      resultado.push(valorAtual);
-      valorAtual = "";
-    } else {
-      valorAtual += caractere;
-    }
-  }
-
-  resultado.push(valorAtual);
-
-  return resultado;
-}
-
-function mostrarProduto(produto) {
-  const imagemProduto = produto.imagem && produto.imagem !== "" 
-    ? `produtos/${produto.imagem}` 
-    : "assets/logo.png";
-
-  const linkOferta = produto.link && produto.link !== "" 
-    ? produto.link 
-    : "#";
-
-  produtoDetalhe.innerHTML = `
-    <div class="produto-detalhe-img">
-      <img src="${imagemProduto}" alt="${produto.nome}">
-    </div>
-
-    <div class="produto-detalhe-info">
-      <h1>${produto.nome}</h1>
-
-      <p>
-        Produto selecionado entre os melhores achadinhos. Clique no botão abaixo para acessar a oferta.
-      </p>
-
-      <a href="${linkOferta}" target="_blank" class="btn-grande">
-        Ir para oferta
+        <span class="logo-texto">
+          Achadinhos <strong>da Shopee</strong>
+        </span>
       </a>
-    </div>
-  `;
-}
 
-carregarProdutoDetalhe();
+    </div>
+  </header>
+
+  <main>
+
+    <section class="produto-detalhe-section">
+      <div class="container">
+
+        <a href="./index.html" class="voltar">
+          ← Voltar para ofertas
+        </a>
+
+        <div id="produtoDetalhe" class="produto-detalhe">
+          <!-- Produto aparece aqui -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./produto.js"></script>
+
+</body>
+</html>
