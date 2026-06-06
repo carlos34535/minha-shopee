@@ -2,17 +2,30 @@ const produtoDetalhe = document.getElementById("produtoDetalhe");
 
 async function carregarProdutoDetalhe() {
   try {
+    produtoDetalhe.innerHTML = `
+      <p style="color:white; font-size:18px;">
+        Carregando produto...
+      </p>
+    `;
+
     const parametros = new URLSearchParams(window.location.search);
     const idProduto = parametros.get("id");
 
     if (!idProduto) {
       produtoDetalhe.innerHTML = `
-        <p>Produto não encontrado.</p>
+        <p style="color:white; font-size:18px;">
+          Produto não encontrado.
+        </p>
       `;
       return;
     }
 
-    const resposta = await fetch("ofertas.csv");
+    const resposta = await fetch("./ofertas.csv?v=" + new Date().getTime());
+
+    if (!resposta.ok) {
+      throw new Error("Arquivo ofertas.csv não encontrado");
+    }
+
     const texto = await resposta.text();
 
     const produtos = converterCSVParaProdutos(texto);
@@ -21,7 +34,9 @@ async function carregarProdutoDetalhe() {
 
     if (!produto) {
       produtoDetalhe.innerHTML = `
-        <p>Produto não encontrado.</p>
+        <p style="color:white; font-size:18px;">
+          Produto não encontrado no CSV.
+        </p>
       `;
       return;
     }
@@ -32,7 +47,9 @@ async function carregarProdutoDetalhe() {
     console.error("Erro ao carregar produto:", erro);
 
     produtoDetalhe.innerHTML = `
-      <p>Erro ao carregar o produto.</p>
+      <p style="color:white; font-size:18px;">
+        Erro ao carregar o produto. Verifique o arquivo produto.js e ofertas.csv.
+      </p>
     `;
   }
 }
@@ -40,7 +57,13 @@ async function carregarProdutoDetalhe() {
 function converterCSVParaProdutos(textoCSV) {
   const linhas = textoCSV.trim().split(/\r?\n/);
 
-  const cabecalho = separarLinhaCSV(linhas[0]).map(item => item.trim());
+  if (linhas.length <= 1) {
+    return [];
+  }
+
+  const cabecalho = separarLinhaCSV(linhas[0]).map(item => {
+    return item.replace("\ufeff", "").trim();
+  });
 
   const produtos = [];
 
@@ -62,9 +85,9 @@ function converterCSVParaProdutos(textoCSV) {
     const produto = {
       id: produtoOriginal["ID do item"] || i,
       nome: produtoOriginal["Nome do item"] || "Produto sem nome",
+      imagem: produtoOriginal["Imagem"] || "",
       linkProduto: produtoOriginal["Link do produto"] || "",
-      linkOferta: produtoOriginal["Link da oferta"] || "",
-      imagem: produtoOriginal["Imagem"] || ""
+      linkOferta: produtoOriginal["Link da oferta"] || ""
     };
 
     produtos.push(produto);
@@ -102,8 +125,8 @@ function separarLinhaCSV(linha) {
 
 function mostrarProduto(produto) {
   const imagemProduto = produto.imagem && produto.imagem !== ""
-    ? `produtos/${produto.imagem}`
-    : "assets/logo.png";
+    ? `./produtos/${produto.imagem}`
+    : "./assets/logo.png";
 
   const linkFinal = produto.linkOferta && produto.linkOferta !== ""
     ? produto.linkOferta
@@ -118,7 +141,7 @@ function mostrarProduto(produto) {
       <h1>${produto.nome}</h1>
 
       <p>
-        Oferta selecionada. Clique no botão abaixo para acessar o produto.
+        Oferta selecionada entre os melhores achadinhos da Shopee. Clique no botão abaixo para acessar a oferta.
       </p>
 
       <a href="${linkFinal}" target="_blank" class="btn-grande">
