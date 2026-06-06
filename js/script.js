@@ -42,13 +42,15 @@ function converterCSV(texto) {
     return coluna.replace("\uFEFF", "").trim();
   });
 
-  return linhas.slice(1).map(linha => {
+  return linhas.slice(1).map((linha, index) => {
     const valores = separarLinhaCSV(linha);
     const produto = {};
 
-    cabecalho.forEach((coluna, index) => {
-      produto[coluna] = valores[index] ? valores[index].trim() : "";
+    cabecalho.forEach((coluna, i) => {
+      produto[coluna] = valores[i] ? valores[i].trim() : "";
     });
+
+    produto.numeroImagem = gerarNumeroImagem(index + 1);
 
     return produto;
   }).filter(produto => produto["Nome do item"]);
@@ -79,6 +81,24 @@ function separarLinhaCSV(linha) {
   resultado.push(valorAtual);
 
   return resultado;
+}
+
+function gerarNumeroImagem(numero) {
+  return String(numero).padStart(3, "0") + ".webp";
+}
+
+function obterImagemProduto(produto) {
+  const imagemCSV = produto["Imagem"] || "";
+
+  if (imagemCSV.startsWith("http")) {
+    return imagemCSV;
+  }
+
+  if (imagemCSV) {
+    return `produtos/${imagemCSV}`;
+  }
+
+  return `produtos/${produto.numeroImagem}`;
 }
 
 function converterVendasParaNumero(vendas) {
@@ -127,62 +147,51 @@ function renderizarProdutos(lista) {
   }
 
   lista.forEach(produto => {
+    const id = produto["ID do item"] || "";
     const nome = produto["Nome do item"] || "";
     const preco = produto["Preço"] || "";
     const vendas = produto["Vendas"] || "";
     const loja = produto["Nome da loja"] || "";
     const comissao = produto["Comissão"] || "";
     const taxaComissao = produto["Taxa de comissão"] || "";
-    const linkOferta = produto["Link da oferta"] || produto["Link do produto"] || "#";
-    const nomeImagem = produto["Imagem"] || "";
-
-    const caminhoImagem = nomeImagem
-      ? `produtos/${nomeImagem}`
-      : "";
+    const caminhoImagem = obterImagemProduto(produto);
 
     const card = document.createElement("div");
     card.className = "produto";
 
     card.innerHTML = `
-      <div class="produto-img-area">
-        ${taxaComissao ? `<span class="desconto">${taxaComissao}</span>` : ""}
+      <a 
+        href="produto.html?id=${encodeURIComponent(id)}" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="produto-link-card"
+      >
+        <div class="produto-img-area">
+          ${taxaComissao ? `<span class="desconto">${taxaComissao}</span>` : ""}
 
-        ${
-          caminhoImagem
-            ? `<img 
-                src="${caminhoImagem}" 
-                alt="${nome}" 
-                class="produto-img"
-                loading="lazy"
-                onerror="this.src='assets/sem-imagem.png'"
-              >`
-            : `<img 
-                src="assets/sem-imagem.png" 
-                alt="Produto sem imagem" 
-                class="produto-img"
-                loading="lazy"
-              >`
-        }
-      </div>
+          <img 
+            src="${caminhoImagem}" 
+            alt="${nome}" 
+            class="produto-img"
+            loading="lazy"
+            onerror="this.src='assets/sem-imagem.png'"
+          >
+        </div>
 
-      <div class="produto-info">
-        <h3 class="produto-nome">${nome}</h3>
+        <div class="produto-info">
+          <h3 class="produto-nome">${nome}</h3>
 
-        <div class="preco">R$ ${preco}</div>
+          <div class="preco">R$ ${preco}</div>
 
-        <p>Vendas: ${vendas}</p>
-        <p>Loja: ${loja}</p>
-        <p>Comissão: ${comissao}</p>
+          <p>Vendas: ${vendas}</p>
+          <p>Loja: ${loja}</p>
+          <p>Comissão: ${comissao}</p>
 
-        <a 
-          href="${linkOferta}" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="botao-produto"
-        >
-          Ver oferta
-        </a>
-      </div>
+          <span class="botao-produto">
+            Ver detalhes
+          </span>
+        </div>
+      </a>
     `;
 
     grid.appendChild(card);
