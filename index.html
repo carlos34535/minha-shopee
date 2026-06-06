@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achadinhos - Ofertas</title>
+<link rel="stylesheet" href="CSS/style.css">
+<link rel="manifest" href="manifest.json">
+<style>
+.grid-produtos { display: flex; flex-wrap: wrap; gap: 15px; }
+.produto { border: 1px solid #ccc; padding: 10px; width: 200px; }
+.btn-ver { display: inline-block; margin-top: 5px; background: #ff6600; color: #fff; padding: 5px 10px; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-container">
+    <div class="logo-area">
+      <img src="https://i.imgur.com/CR8bfX5.png" alt="Achadinhos" class="logo-img">
+      <h1 class="logo-text">Achadinhos</h1>
+    </div>
+    <input type="text" id="busca" placeholder="Buscar produto..." class="campo-busca">
+  </div>
+</header>
+
+<section class="hero">
+  <span class="badge">🔥 Ofertas selecionadas</span>
+  <h2>Encontre os melhores <span>achadinhos</span></h2>
+  <p>Produtos com preços promocionais, atualizados para você economizar mais.</p>
+</section>
+
+<main class="conteudo">
+  <div class="titulo-area">
+    <h2>Produtos em destaque</h2>
+    <p id="contador-produtos">0 produtos</p>
+  </div>
+  <div class="filtros">
+    <button class="filtro ativo" data-filtro="todos">Todos</button>
+    <button class="filtro" data-filtro="recentes">Recentes</button>
+    <button class="filtro" data-filtro="clicados">Mais clicados</button>
+  </div>
+  <div id="grid" class="grid-produtos"></div>
+</main>
+
+<footer class="footer">
+  © 2026 Achadinhos - Ofertas selecionadas
+</footer>
+
+<script>
+// CSV convertido para array JavaScript
+const produtos = [
+["KIT SHAMPOO V-FLOC CERA TOK FINAL VEXUS VONIXX PRETINHO VINTEX","134,90","4mil+","Patron - Distribuidora VONNIX","R$16,19","https://s.shopee.com.br/6py3ZnhGG6"],
+["Bomba de Ar Portatil Compressor Inflator Multi-função 4 em 1 PowerBank 8kmah Bateria Calibrador de Carro Auto Pneu","239,99","7mil+","CASA TOP SHOP","R$21,60","https://s.shopee.com.br/6fedNUhtb5"],
+["Álbum da copa do mundo 2026 + Figurinhas Original Panini","36,90","5mil+","2C PRESENTES","R$1,11","https://s.shopee.com.br/3g11nytJgW"],
+["Capacete Fechado Esportivo Stealth Concept Viseira Fumê","229,90","9mil+","Sportbay","R$39,08","https://s.shopee.com.br/3qKS0HsgLZ"],
+["Kit Pneu Pretinho Shampoo V-Floc Cera Tok Final Carnauba Vonixx","109,90","4mil+","Patron - Distribuidora VONNIX","R$13,19","https://s.shopee.com.br/3LOBPMuaMU"],
+["KIT Câmera De Segurança WIFI Lâmpada Sem Fio full HD IP 360°Com Microfone 8177","99,99","3mil+","SPLORO","R$10,00","https://s.shopee.com.br/3Vhbbftx1X"],
+["Album Capa Mole Brochura Figurinhas Copa Do Mundo FIFA 2026 Original Panini","99,90","642","ITOKAZU UTILIDADES","R$3,00","https://s.shopee.com.br/30lL0kvr2S"],
+["Kit  Collagen Completo Máscara 500g Shampoo 1L Condicionador 1L Óleo Maca 50ml Tratamento Profissional","49,00","50mil+","Karseell Oficial ","R$7,84","https://s.shopee.com.br/3B4lD3vDhV"],
+["KIT SHAMPOO V-FLOC CERA TOK FINAL VEXUS VONIXX PRETINHO VINTEX","103,97","6mil+","GHSPEÇAS","R$7,28","https://s.shopee.com.br/2g8Uc8x7iQ"],
+["Câmera Externa Ip a Prova D'água com Infravermelho Alarme Wifi Hd Sensor De Movimento yoosee / icsee","107,99","60mil+","IMPORTADOS DO BRASIL","R$12,96","https://s.shopee.com.br/2qRuoRwUNT"],
+["Kit 200 Cards Copa do Mundo Fifa 2026 50 Pacotinhos Fechados Para Bater Bafo Trocar Cartas Futebol","29,90","9mil+","EuroShop PT","R$2,09","https://s.shopee.com.br/50WPOQoEyu"],
+["Kit Inicial Álbum Copa do Mundo 2026 + 5 Envelopes Panini","69,00","4mil+","Universo Cultural","R$12,42","https://s.shopee.com.br/5Appajnbdx"],
+["Kit Lavagem Shampoo Cera Tok Final Intense Sintra Fast Vonixx","159,90","10mil+","Patron - Distribuidora VONNIX","R$19,19","https://s.shopee.com.br/4ftYzopVes"],
+["Blusa Feminina Brasil T-shirt Verão Algodão","31,96","6mil+","Latzi","R$8,95","https://s.shopee.com.br/4qCzC7osJv"],
+["Guarda-roupa Casal Easy Slim 8 Portas Com Espelho Amendoa Clean/Off White","1,2mil","6mil+","LOJA EASY HOUSE","R$150,79","https://s.shopee.com.br/4LGibCqmKq"],
+["Jogo de Panelas 13 Peças + Panela de Pressão 2L Conjunto Teflon Antiaderente Frigideira Caçarola","179,99","4mil+","ClickComercioDigital","R$32,40","https://s.shopee.com.br/4Va8nVq8zt"],
+["KIT SHAMPOO V-FLOC SINTRA FAST CERA TOK FINAL VONIXX PNEU PRETINHO VINTEX","114,35","3mil+","Veloclean Automotive ","R$13,72","https://s.shopee.com.br/40dsCas30o"],
+["Compressor De Ar Elétrico Portátil Digital Ncher Pneu Carro Moto Bike Bicicleta Bola Piscina Inflável","73,99","80mil+","JIMMY.STORE","R$5,92","https://s.shopee.com.br/4AxIOtrPfr"],
+["Conjunto de Cabeceiras em Módulos NÚVEM com 1 kit Mesa de Cabeceira CLÉO com 1 Gaveta e Prateleira - Cores","229,90","1mil+","Atelier dos Móveis","R$29,89","https://s.shopee.com.br/110Gd53T6G"],
+["Mala De Viagem/Bordo 10KG,Nova Estilo Zíper Dupla Camada Anti-Roubo,Rodas Duplas 360Grau lançamento","133,99","7mil+","mais shop malas","R$10,72","https://s.shopee.com.br/1BJgpO2plJ"]
+];
+
+// Gera os produtos no grid
+const grid = document.getElementById("grid");
+produtos.forEach(p => {
+  const [nome, preco, vendas, loja, comissao, link] = p;
+  grid.innerHTML += `
+    <div class="produto">
+      <h3>${nome}</h3>
+      <p>Preço: R$ ${preco}</p>
+      <p>Vendas: ${vendas}</p>
+      <p>Loja: ${loja}</p>
+      <p>Comissão: ${comissao}</p>
+      <a href="${link}" target="_blank" class="btn-ver">Ver oferta</a>
+    </div>
+  `;
+});
+document.getElementById("contador-produtos").innerText = produtos.length + " produtos";
+</script>
+
+</body>
+</html>
