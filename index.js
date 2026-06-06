@@ -1,82 +1,154 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
+let todosProdutos = [];
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+const listaProdutos = document.getElementById("listaProdutos");
+const campoBusca = document.getElementById("campoBusca");
+const contadorProdutos = document.getElementById("contadorProdutos");
+const botoesFiltro = document.querySelectorAll(".filtro");
 
-  <title>Achadinhos - Ofertas</title>
+async function carregarProdutos() {
+  try {
+    const resposta = await fetch("ofertas.csv");
+    const texto = await resposta.text();
 
-  <link rel="stylesheet" href="css/style.css">
-</head>
+    todosProdutos = converterCSVParaProdutos(texto);
 
-<body>
+    mostrarProdutos(todosProdutos);
+  } catch (erro) {
+    console.error("Erro ao carregar produtos:", erro);
 
-  <header class="topo">
-    <div class="container topo-conteudo">
+    listaProdutos.innerHTML = `
+      <p style="color: #fff;">
+        Erro ao carregar os produtos. Verifique se o arquivo ofertas.csv existe.
+      </p>
+    `;
+  }
+}
 
-      <a href="index.html" class="logo-area">
-        <img src="assets/logo.png" alt="Logo Achadinhos" class="logo-img">
-        <span class="logo-texto">
-          Achadinhos <strong>ofertas</strong>
-        </span>
+function converterCSVParaProdutos(textoCSV) {
+  const linhas = textoCSV.trim().split("\n");
+
+  const cabecalho = linhas[0].split(",").map(item => item.trim());
+
+  const produtos = [];
+
+  for (let i = 1; i < linhas.length; i++) {
+    const linha = linhas[i];
+
+    if (!linha.trim()) {
+      continue;
+    }
+
+    const valores = separarLinhaCSV(linha);
+
+    const produto = {};
+
+    cabecalho.forEach((coluna, index) => {
+      produto[coluna] = valores[index] ? valores[index].trim() : "";
+    });
+
+    produto.id = i;
+
+    produtos.push(produto);
+  }
+
+  return produtos;
+}
+
+function separarLinhaCSV(linha) {
+  const resultado = [];
+  let valorAtual = "";
+  let dentroDeAspas = false;
+
+  for (let i = 0; i < linha.length; i++) {
+    const caractere = linha[i];
+
+    if (caractere === '"') {
+      dentroDeAspas = !dentroDeAspas;
+    } else if (caractere === "," && !dentroDeAspas) {
+      resultado.push(valorAtual);
+      valorAtual = "";
+    } else {
+      valorAtual += caractere;
+    }
+  }
+
+  resultado.push(valorAtual);
+
+  return resultado;
+}
+
+function mostrarProdutos(produtos) {
+  listaProdutos.innerHTML = "";
+
+  contadorProdutos.textContent = `${produtos.length} produtos`;
+
+  if (produtos.length === 0) {
+    listaProdutos.innerHTML = `
+      <p style="color: #fff;">
+        Nenhum produto encontrado.
+      </p>
+    `;
+    return;
+  }
+
+  produtos.forEach(produto => {
+    const card = document.createElement("div");
+
+    card.classList.add("produto-card");
+
+    const imagemProduto = produto.imagem && produto.imagem !== "" 
+      ? `produtos/${produto.imagem}` 
+      : "assets/logo.png";
+
+    card.innerHTML = `
+      <a href="produto.html?id=${produto.id}" class="produto-imagem-area">
+        <img src="${imagemProduto}" alt="${produto.nome}">
       </a>
 
-      <div class="busca-area">
-        <input 
-          type="text" 
-          id="campoBusca" 
-          placeholder="Buscar produto..."
-        >
-      </div>
+      <h3>${produto.nome}</h3>
 
-    </div>
-  </header>
+      <a href="produto.html?id=${produto.id}" class="btn-oferta">
+        Ver oferta
+      </a>
+    `;
 
-  <main>
+    listaProdutos.appendChild(card);
+  });
+}
 
-    <section class="hero">
-      <div class="container">
+function buscarProdutos() {
+  const termo = campoBusca.value.toLowerCase().trim();
 
-        <div class="selo">
-          🔥 Ofertas selecionadas
-        </div>
+  const produtosFiltrados = todosProdutos.filter(produto => {
+    return produto.nome.toLowerCase().includes(termo);
+  });
 
-        <h1>
-          Encontre os melhores <span>achadinhos</span>
-        </h1>
+  mostrarProdutos(produtosFiltrados);
+}
 
-        <p>
-          Produtos com ofertas selecionadas para você economizar mais.
-        </p>
+campoBusca.addEventListener("input", buscarProdutos);
 
-      </div>
-    </section>
+botoesFiltro.forEach(botao => {
+  botao.addEventListener("click", () => {
+    botoesFiltro.forEach(item => item.classList.remove("ativo"));
 
-    <section class="produtos-section">
-      <div class="container">
+    botao.classList.add("ativo");
 
-        <div class="titulo-area">
-          <h2>Produtos em destaque</h2>
-          <span id="contadorProdutos">0 produtos</span>
-        </div>
+    const filtro = botao.getAttribute("data-filtro");
 
-        <div class="filtros">
-          <button class="filtro ativo" data-filtro="todos">Todos</button>
-          <button class="filtro" data-filtro="recentes">Recentes</button>
-          <button class="filtro" data-filtro="clicados">Mais clicados</button>
-        </div>
+    if (filtro === "todos") {
+      mostrarProdutos(todosProdutos);
+    }
 
-        <div id="listaProdutos" class="grid-produtos">
-          <!-- Os produtos serão carregados aqui pelo JavaScript -->
-        </div>
+    if (filtro === "recentes") {
+      const recentes = [...todosProdutos].reverse();
+      mostrarProdutos(recentes);
+    }
 
-      </div>
-    </section>
+    if (filtro === "clicados") {
+      mostrarProdutos(todosProdutos);
+    }
+  });
+});
 
-  </main>
-
-  <script src="js/index.js"></script>
-
-</body>
-</html>
+carregarProdutos();
