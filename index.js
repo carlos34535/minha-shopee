@@ -2,95 +2,81 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Minha Shopee</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: #0f0f0f;
-      color: white;
-      text-align: center;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    #produtos-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
+  <title>Achadinhos - Ofertas</title>
 
-    .produto-card {
-      background: #1a1a1a;
-      border-radius: 10px;
-      width: 200px;
-      overflow: hidden;
-    }
-
-    .produto-img {
-      width: 100%;
-    }
-
-    .produto-info {
-      padding: 10px;
-    }
-
-    .botao {
-      background: orange;
-      padding: 8px;
-      display: inline-block;
-      margin-top: 10px;
-      border-radius: 5px;
-    }
-
-    a {
-      text-decoration: none;
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<h1>🔥 Achadinhos da Shopee</h1>
+  <header class="topo">
+    <div class="container topo-conteudo">
 
-<div id="produtos-container"></div>
-
-<script>
-const produtos = [
-  {
-    nome: "Kit Shampoo V-FLOC",
-    imagem: "https://via.placeholder.com/300",
-    link: "https://shopee.com.br"
-  },
-  {
-    nome: "Tênis Masculino",
-    imagem: "https://via.placeholder.com/300",
-    link: "https://shopee.com.br"
-  }
-];
-
-function renderizar() {
-  const container = document.getElementById("produtos-container");
-
-  produtos.forEach(produto => {
-    const card = document.createElement("div");
-    card.className = "produto-card";
-
-    card.innerHTML = `
-      <a href="${produto.link}" target="_blank">
-        <img src="${produto.imagem}" class="produto-img">
-        <div class="produto-info">
-          <h3>${produto.nome}</h3>
-          <div class="botao">🔥 Ver na Shopee</div>
-        </div>
+      <a href="index.html" class="logo-area">
+        <img src="assets/logo.png" alt="Logo Achadinhos" class="logo-img">
+        <span class="logo-texto">
+          Achadinhos <strong>ofertas</strong>
+        </span>
       </a>
-    `;
 
-    container.appendChild(card);
-  });
-}
+      <div class="busca-area">
+        <input 
+          type="text" 
+          id="campoBusca" 
+          placeholder="Buscar produto..."
+        >
+      </div>
 
-renderizar();
-</script>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+
+        <div class="selo">
+          🔥 Ofertas selecionadas
+        </div>
+
+        <h1>
+          Encontre os melhores <span>achadinhos</span>
+        </h1>
+
+        <p>
+          Produtos com ofertas selecionadas para você economizar mais.
+        </p>
+
+      </div>
+    </section>
+
+    <section class="produtos-section">
+      <div class="container">
+
+        <div class="titulo-area">
+          <h2>Produtos em destaque</h2>
+          <span id="contadorProdutos">0 produtos</span>
+        </div>
+
+        <div class="filtros">
+          <button class="filtro ativo" data-filtro="todos">Todos</button>
+          <button class="filtro" data-filtro="recentes">Recentes</button>
+          <button class="filtro" data-filtro="clicados">Mais clicados</button>
+        </div>
+
+        <div id="listaProdutos" class="grid-produtos">
+          <!-- Os produtos serão carregados aqui pelo JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/index.js"></script>
 
 </body>
 </html>
