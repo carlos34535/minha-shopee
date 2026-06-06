@@ -1,48 +1,28 @@
-function obterImagemProduto(produto) {
-  return produto["Imagem"] || produto["Imagem 1"] || "assets/sem-imagem.png";
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha Shopee</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
 
-function renderizarProdutos(produtos) {
-  const container = document.getElementById("produtos-container");
-  container.innerHTML = "";
+  <h1>🔥 Achadinhos da Shopee</h1>
 
-  produtos.forEach((produto, index) => {
-    const id = index;
+  <div id="produtos-container"></div>
 
-    const nome = produto["Nome do item"] || "";
-    const caminhoImagem = obterImagemProduto(produto);
-    const linkOferta = produto["Link da oferta"] || produto["Link do produto"] || "#";
+  <!-- JS PRINCIPAL -->
+  <script src="index.js"></script>
 
-    const card = document.createElement("div");
-    card.classList.add("produto-card");
+  <!-- CARREGAR PRODUTOS -->
+  <script>
+    fetch("produtos.json")
+      .then(res => res.json())
+      .then(data => {
+        renderizarProdutos(data);
+      })
+      .catch(err => console.error("Erro ao carregar produtos:", err));
+  </script>
 
-    card.innerHTML = `
-      <a href="produto.html?id=${encodeURIComponent(id)}" 
-         class="produto-link-card">
-
-        <div class="produto-img-area">
-          <img 
-            src="${caminhoImagem}" 
-            alt="${nome}" 
-            class="produto-img"
-            loading="lazy"
-            onerror="this.src='assets/sem-imagem.png'"
-          >
-        </div>
-
-        <div class="produto-info">
-          <h3 class="produto-nome">${nome}</h3>
-
-          <p class="cta-text">🔥 Ver na Shopee</p>
-
-          <span class="botao-produto">
-            Ver detalhes
-          </span>
-        </div>
-
-      </a>
-    `;
-
-    container.appendChild(card);
-  });
-}
+</body>
+</html>
