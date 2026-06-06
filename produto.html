@@ -1,49 +1,121 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
+const produtoDetalhe = document.getElementById("produtoDetalhe");
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+async function carregarProdutoDetalhe() {
+  try {
+    const parametros = new URLSearchParams(window.location.search);
+    const idProduto = parametros.get("id");
 
-  <title>Produto - Achadinhos Ofertas</title>
+    if (!idProduto) {
+      produtoDetalhe.innerHTML = `
+        <p>Produto não encontrado.</p>
+      `;
+      return;
+    }
 
-  <link rel="stylesheet" href="css/style.css">
-</head>
+    const resposta = await fetch("ofertas.csv");
+    const texto = await resposta.text();
 
-<body>
+    const produtos = converterCSVParaProdutos(texto);
 
-  <header class="topo">
-    <div class="container topo-conteudo">
+    const produto = produtos.find(item => String(item.id) === String(idProduto));
 
-      <a href="index.html" class="logo-area">
-        <img src="assets/logo.png" alt="Logo Achadinhos" class="logo-img">
-        <span class="logo-texto">
-          Achadinhos <strong>ofertas</strong>
-        </span>
-      </a>
+    if (!produto) {
+      produtoDetalhe.innerHTML = `
+        <p>Produto não encontrado.</p>
+      `;
+      return;
+    }
 
+    mostrarProduto(produto);
+
+  } catch (erro) {
+    console.error("Erro ao carregar produto:", erro);
+
+    produtoDetalhe.innerHTML = `
+      <p>Erro ao carregar o produto.</p>
+    `;
+  }
+}
+
+function converterCSVParaProdutos(textoCSV) {
+  const linhas = textoCSV.trim().split("\n");
+
+  const cabecalho = linhas[0].split(",").map(item => item.trim());
+
+  const produtos = [];
+
+  for (let i = 1; i < linhas.length; i++) {
+    const linha = linhas[i];
+
+    if (!linha.trim()) {
+      continue;
+    }
+
+    const valores = separarLinhaCSV(linha);
+
+    const produto = {};
+
+    cabecalho.forEach((coluna, index) => {
+      produto[coluna] = valores[index] ? valores[index].trim() : "";
+    });
+
+    produto.id = i;
+
+    produtos.push(produto);
+  }
+
+  return produtos;
+}
+
+function separarLinhaCSV(linha) {
+  const resultado = [];
+  let valorAtual = "";
+  let dentroDeAspas = false;
+
+  for (let i = 0; i < linha.length; i++) {
+    const caractere = linha[i];
+
+    if (caractere === '"') {
+      dentroDeAspas = !dentroDeAspas;
+    } else if (caractere === "," && !dentroDeAspas) {
+      resultado.push(valorAtual);
+      valorAtual = "";
+    } else {
+      valorAtual += caractere;
+    }
+  }
+
+  resultado.push(valorAtual);
+
+  return resultado;
+}
+
+function mostrarProduto(produto) {
+  const imagemProduto = produto.imagem && produto.imagem !== "" 
+    ? `produtos/${produto.imagem}` 
+    : "assets/logo.png";
+
+  const linkOferta = produto.link && produto.link !== "" 
+    ? produto.link 
+    : "#";
+
+  produtoDetalhe.innerHTML = `
+    <div class="produto-detalhe-img">
+      <img src="${imagemProduto}" alt="${produto.nome}">
     </div>
-  </header>
 
-  <main>
+    <div class="produto-detalhe-info">
+      <h1>${produto.nome}</h1>
 
-    <section class="produto-detalhe-section">
-      <div class="container">
+      <p>
+        Produto selecionado entre os melhores achadinhos. Clique no botão abaixo para acessar a oferta.
+      </p>
 
-        <a href="index.html" class="voltar">
-          ← Voltar para ofertas
-        </a>
+      <a href="${linkOferta}" target="_blank" class="btn-grande">
+        Ir para oferta
+      </a>
+    </div>
+  `;
+}
 
-        <div id="produtoDetalhe" class="produto-detalhe">
-          <!-- O produto será carregado aqui -->
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <script src="js/produto.js"></script>
-
-</body>
-</html>
+carregarProdutoDetalhe();
