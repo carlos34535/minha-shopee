@@ -14,9 +14,18 @@
 
   <header class="header">
     <div class="header-container">
+
       <div class="logo-area">
-        <img src="assets/logo.png" alt="Achadinhos" class="logo-img">
-        <h1 class="logo-text">Achadinhos <span>Ofertas</span></h1>
+        <img 
+          src="assets/logo.png" 
+          alt="Achadinhos Ofertas" 
+          class="logo-img"
+          onerror="this.style.display='none'"
+        >
+
+        <h1 class="logo-text">
+          Achadinhos <span>Ofertas</span>
+        </h1>
       </div>
 
       <input 
@@ -25,13 +34,16 @@
         placeholder="Buscar produto..." 
         class="campo-busca"
       >
+
     </div>
   </header>
 
   <section class="hero">
     <span class="badge">🔥 Ofertas selecionadas</span>
 
-    <h2>Encontre os melhores <span>achadinhos</span></h2>
+    <h2>
+      Encontre os melhores <span>achadinhos</span>
+    </h2>
 
     <p>
       Produtos com preços promocionais, atualizados para você economizar mais.
@@ -39,6 +51,7 @@
   </section>
 
   <main class="conteudo">
+
     <div class="titulo-area">
       <h2>Produtos em destaque</h2>
       <p id="contador-produtos">0 produtos</p>
@@ -51,6 +64,7 @@
     </div>
 
     <div id="grid" class="grid-produtos"></div>
+
   </main>
 
   <footer class="footer">
