@@ -7,24 +7,36 @@ const botoesFiltro = document.querySelectorAll(".filtro");
 
 async function carregarProdutos() {
   try {
-    const resposta = await fetch("./ofertas.csv");
+    listaProdutos.innerHTML = `
+      <p style="color:white; font-size:18px;">
+        Carregando produtos...
+      </p>
+    `;
+
+    const resposta = await fetch("./ofertas.csv?v=" + new Date().getTime());
 
     if (!resposta.ok) {
-      throw new Error("Arquivo ofertas.csv não encontrado");
+      throw new Error("Não encontrei o arquivo ofertas.csv");
     }
 
     const texto = await resposta.text();
 
+    console.log("CSV carregado:", texto);
+
     todosProdutos = converterCSVParaProdutos(texto);
+
+    console.log("Produtos convertidos:", todosProdutos);
 
     mostrarProdutos(todosProdutos);
 
   } catch (erro) {
     console.error("Erro ao carregar produtos:", erro);
 
+    contadorProdutos.textContent = "0 produtos";
+
     listaProdutos.innerHTML = `
-      <p style="color: white; font-size: 18px;">
-        Erro ao carregar os produtos. Verifique se o arquivo ofertas.csv está na pasta principal.
+      <p style="color:white; font-size:18px;">
+        Erro ao carregar produtos. Verifique se o arquivo ofertas.csv está na pasta principal.
       </p>
     `;
   }
@@ -33,7 +45,13 @@ async function carregarProdutos() {
 function converterCSVParaProdutos(textoCSV) {
   const linhas = textoCSV.trim().split(/\r?\n/);
 
-  const cabecalho = separarLinhaCSV(linhas[0]).map(item => item.trim());
+  if (linhas.length <= 1) {
+    return [];
+  }
+
+  const cabecalho = separarLinhaCSV(linhas[0]).map(item => {
+    return item.replace("\ufeff", "").trim();
+  });
 
   const produtos = [];
 
@@ -100,8 +118,8 @@ function mostrarProdutos(produtos) {
 
   if (produtos.length === 0) {
     listaProdutos.innerHTML = `
-      <p style="color: white; font-size: 18px;">
-        Nenhum produto encontrado.
+      <p style="color:white; font-size:18px;">
+        Nenhum produto encontrado no CSV.
       </p>
     `;
     return;
@@ -159,8 +177,7 @@ botoesFiltro.forEach(botao => {
     }
 
     if (filtro === "recentes") {
-      const recentes = [...todosProdutos].reverse();
-      mostrarProdutos(recentes);
+      mostrarProdutos([...todosProdutos].reverse());
     }
 
     if (filtro === "clicados") {
