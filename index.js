@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Minha Shopee</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <h1>🔥 Achadinhos da Shopee</h1>
+
+  <div id="produtos-container"></div>
+
+  <!-- JS PRINCIPAL -->
+  <script src="index.js"></script>
+
+  <!-- CARREGAR PRODUTOS -->
+  <script>
+    fetch("produtos.json")
+      .then(res => res.json())
+      .then(data => {
+        renderizarProdutos(data);
+      })
+      .catch(err => console.error("Erro ao carregar produtos:", err));
+  </script>
+
+</body>
+</html>
