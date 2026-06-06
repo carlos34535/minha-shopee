@@ -1,166 +1,80 @@
-let todosProdutos = [];
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
 
-const listaProdutos = document.getElementById("listaProdutos");
-const campoBusca = document.getElementById("campoBusca");
-const contadorProdutos = document.getElementById("contadorProdutos");
-const botoesFiltro = document.querySelectorAll(".filtro");
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-async function carregarProdutos() {
-  try {
-    const resposta = await fetch("ofertas.csv");
-    const texto = await resposta.text();
+  <title>Minha Shopee</title>
 
-    todosProdutos = converterCSVParaProdutos(texto);
+  <link rel="stylesheet" href="css/style.css">
+</head>
 
-    mostrarProdutos(todosProdutos);
-  } catch (erro) {
-    console.error("Erro ao carregar produtos:", erro);
+<body>
 
-    listaProdutos.innerHTML = `
-      <p style="color: #fff;">
-        Erro ao carregar os produtos. Verifique se o arquivo ofertas.csv está na pasta principal do site.
-      </p>
-    `;
-  }
-}
+  <header class="topo">
+    <div class="container topo-conteudo">
 
-function converterCSVParaProdutos(textoCSV) {
-  const linhas = textoCSV.trim().split(/\r?\n/);
-
-  const cabecalho = separarLinhaCSV(linhas[0]).map(item => item.trim());
-
-  const produtos = [];
-
-  for (let i = 1; i < linhas.length; i++) {
-    const linha = linhas[i];
-
-    if (!linha.trim()) {
-      continue;
-    }
-
-    const valores = separarLinhaCSV(linha);
-
-    const produtoOriginal = {};
-
-    cabecalho.forEach((coluna, index) => {
-      produtoOriginal[coluna] = valores[index] ? valores[index].trim() : "";
-    });
-
-    const produto = {
-      id: produtoOriginal["ID do item"] || i,
-      nome: produtoOriginal["Nome do item"] || "Produto sem nome",
-      linkProduto: produtoOriginal["Link do produto"] || "",
-      linkOferta: produtoOriginal["Link da oferta"] || "",
-      imagem: produtoOriginal["Imagem"] || ""
-    };
-
-    produtos.push(produto);
-  }
-
-  return produtos;
-}
-
-function separarLinhaCSV(linha) {
-  const resultado = [];
-  let valorAtual = "";
-  let dentroDeAspas = false;
-
-  for (let i = 0; i < linha.length; i++) {
-    const caractere = linha[i];
-    const proximoCaractere = linha[i + 1];
-
-    if (caractere === '"' && dentroDeAspas && proximoCaractere === '"') {
-      valorAtual += '"';
-      i++;
-    } else if (caractere === '"') {
-      dentroDeAspas = !dentroDeAspas;
-    } else if (caractere === "," && !dentroDeAspas) {
-      resultado.push(valorAtual);
-      valorAtual = "";
-    } else {
-      valorAtual += caractere;
-    }
-  }
-
-  resultado.push(valorAtual);
-
-  return resultado;
-}
-
-function mostrarProdutos(produtos) {
-  listaProdutos.innerHTML = "";
-
-  contadorProdutos.textContent = `${produtos.length} produtos`;
-
-  if (produtos.length === 0) {
-    listaProdutos.innerHTML = `
-      <p style="color: #fff;">
-        Nenhum produto encontrado.
-      </p>
-    `;
-    return;
-  }
-
-  produtos.forEach(produto => {
-    const card = document.createElement("div");
-
-    card.classList.add("produto-card");
-
-    const imagemProduto = produto.imagem && produto.imagem !== ""
-      ? `produtos/${produto.imagem}`
-      : "assets/logo.png";
-
-    card.innerHTML = `
-      <a href="produto.html?id=${produto.id}" class="produto-imagem-area">
-        <img src="${imagemProduto}" alt="${produto.nome}">
+      <a href="index.html" class="logo-area">
+        <img src="assets/logo.png" alt="Logo" class="logo-img">
+        <span class="logo-texto">
+          Achadinhos <strong>da Shopee</strong>
+        </span>
       </a>
 
-      <h3>${produto.nome}</h3>
+      <div class="busca-area">
+        <input 
+          type="text" 
+          id="campoBusca" 
+          placeholder="Buscar produto..."
+        >
+      </div>
 
-      <a href="produto.html?id=${produto.id}" class="btn-oferta">
-        Ver oferta
-      </a>
-    `;
+    </div>
+  </header>
 
-    listaProdutos.appendChild(card);
-  });
-}
+  <main>
 
-function buscarProdutos() {
-  const termo = campoBusca.value.toLowerCase().trim();
+    <section class="hero">
+      <div class="container">
 
-  const produtosFiltrados = todosProdutos.filter(produto => {
-    return produto.nome.toLowerCase().includes(termo);
-  });
+        <div class="selo">
+          🔥 Ofertas selecionadas
+        </div>
 
-  mostrarProdutos(produtosFiltrados);
-}
+        <h1>
+          Encontre os melhores <span>achadinhos</span>
+        </h1>
 
-if (campoBusca) {
-  campoBusca.addEventListener("input", buscarProdutos);
-}
+        <p>
+          Produtos selecionados para você economizar mais.
+        </p>
 
-botoesFiltro.forEach(botao => {
-  botao.addEventListener("click", () => {
-    botoesFiltro.forEach(item => item.classList.remove("ativo"));
+      </div>
+    </section>
 
-    botao.classList.add("ativo");
+    <section class="produtos-section">
+      <div class="container">
 
-    const filtro = botao.getAttribute("data-filtro");
+        <div class="titulo-area">
+          <h2>Produtos em destaque</h2>
+          <span id="contadorProdutos">0 produtos</span>
+        </div>
 
-    if (filtro === "todos") {
-      mostrarProdutos(todosProdutos);
-    }
+        <div class="filtros">
+          <button class="filtro ativo" data-filtro="todos">Todos</button>
+          <button class="filtro" data-filtro="recentes">Recentes</button>
+          <button class="filtro" data-filtro="clicados">Mais clicados</button>
+        </div>
 
-    if (filtro === "recentes") {
-      const recentes = [...todosProdutos].reverse();
-      mostrarProdutos(recentes);
-    }
+        <div id="listaProdutos" class="grid-produtos"></div>
 
-    if (filtro === "clicados") {
-      mostrarProdutos(todosProdutos);
-    }
-  });
-});
+      </div>
+    </section>
 
-carregarProdutos();
+  </main>
+
+  <script src="js/index.js"></script>
+
+</body>
+</html>
