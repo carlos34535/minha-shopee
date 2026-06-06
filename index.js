@@ -18,16 +18,16 @@ async function carregarProdutos() {
 
     listaProdutos.innerHTML = `
       <p style="color: #fff;">
-        Erro ao carregar os produtos. Verifique se o arquivo ofertas.csv existe.
+        Erro ao carregar os produtos. Verifique se o arquivo ofertas.csv está na pasta principal do site.
       </p>
     `;
   }
 }
 
 function converterCSVParaProdutos(textoCSV) {
-  const linhas = textoCSV.trim().split("\n");
+  const linhas = textoCSV.trim().split(/\r?\n/);
 
-  const cabecalho = linhas[0].split(",").map(item => item.trim());
+  const cabecalho = separarLinhaCSV(linhas[0]).map(item => item.trim());
 
   const produtos = [];
 
@@ -40,13 +40,19 @@ function converterCSVParaProdutos(textoCSV) {
 
     const valores = separarLinhaCSV(linha);
 
-    const produto = {};
+    const produtoOriginal = {};
 
     cabecalho.forEach((coluna, index) => {
-      produto[coluna] = valores[index] ? valores[index].trim() : "";
+      produtoOriginal[coluna] = valores[index] ? valores[index].trim() : "";
     });
 
-    produto.id = i;
+    const produto = {
+      id: produtoOriginal["ID do item"] || i,
+      nome: produtoOriginal["Nome do item"] || "Produto sem nome",
+      linkProduto: produtoOriginal["Link do produto"] || "",
+      linkOferta: produtoOriginal["Link da oferta"] || "",
+      imagem: produtoOriginal["Imagem"] || ""
+    };
 
     produtos.push(produto);
   }
@@ -61,8 +67,12 @@ function separarLinhaCSV(linha) {
 
   for (let i = 0; i < linha.length; i++) {
     const caractere = linha[i];
+    const proximoCaractere = linha[i + 1];
 
-    if (caractere === '"') {
+    if (caractere === '"' && dentroDeAspas && proximoCaractere === '"') {
+      valorAtual += '"';
+      i++;
+    } else if (caractere === '"') {
       dentroDeAspas = !dentroDeAspas;
     } else if (caractere === "," && !dentroDeAspas) {
       resultado.push(valorAtual);
@@ -96,8 +106,8 @@ function mostrarProdutos(produtos) {
 
     card.classList.add("produto-card");
 
-    const imagemProduto = produto.imagem && produto.imagem !== "" 
-      ? `produtos/${produto.imagem}` 
+    const imagemProduto = produto.imagem && produto.imagem !== ""
+      ? `produtos/${produto.imagem}`
       : "assets/logo.png";
 
     card.innerHTML = `
@@ -126,7 +136,9 @@ function buscarProdutos() {
   mostrarProdutos(produtosFiltrados);
 }
 
-campoBusca.addEventListener("input", buscarProdutos);
+if (campoBusca) {
+  campoBusca.addEventListener("input", buscarProdutos);
+}
 
 botoesFiltro.forEach(botao => {
   botao.addEventListener("click", () => {
