@@ -21,18 +21,19 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 34px;
       margin-bottom: 10px;
     }
 
     p {
       color: #cfcfd8;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
 
     .box {
@@ -40,7 +41,13 @@
       border: 1px solid #30313f;
       border-radius: 16px;
       padding: 24px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     label {
@@ -62,9 +69,8 @@
       outline: none;
     }
 
-    textarea {
-      min-height: 130px;
-      resize: vertical;
+    input[type="file"] {
+      padding: 10px;
     }
 
     button {
@@ -84,6 +90,14 @@
       background: #ff7b1a;
     }
 
+    .btn-secundario {
+      background: #252633;
+    }
+
+    .btn-secundario:hover {
+      background: #30313f;
+    }
+
     .resultado {
       background: #08090f;
       border: 1px solid #30313f;
@@ -94,18 +108,46 @@
       white-space: pre-wrap;
       word-break: break-word;
       min-height: 80px;
+      max-height: 260px;
+      overflow: auto;
     }
 
     .aviso {
       color: #ff9d00;
       font-size: 14px;
       margin-top: 12px;
+      line-height: 1.5;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .status {
+      background: #08090f;
+      border: 1px solid #30313f;
+      border-radius: 12px;
+      padding: 14px;
+      color: #d6d7e0;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    .preview {
+      width: 180px;
+      height: 180px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px;
+      object-fit: contain;
+      display: none;
+      margin-bottom: 18px;
+    }
+
+    .ok {
+      color: #58d68d;
+      font-weight: 700;
+    }
+
+    .erro {
+      color: #ff6b6b;
+      font-weight: 700;
     }
 
     @media (max-width: 700px) {
@@ -127,20 +169,38 @@
     <h1>Painel rápido de produtos</h1>
 
     <p>
-      Preencha os dados abaixo, gere a linha pronta e cole no arquivo ofertas.csv.
+      Carregue seu arquivo <strong>ofertas.csv</strong>, cadastre um novo produto,
+      baixe o CSV atualizado e baixe a imagem com o nome certo.
     </p>
 
     <div class="box">
+      <h2>1. Carregar CSV atual</h2>
+
+      <p>
+        Primeiro selecione o arquivo <strong>ofertas.csv</strong> atual do seu projeto.
+      </p>
+
+      <input type="file" id="arquivoCSV" accept=".csv">
+
+      <button onclick="carregarCSV()">Carregar CSV</button>
+
+      <div id="statusCSV" class="status">
+        Nenhum CSV carregado ainda.
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>2. Novo produto</h2>
 
       <div class="grid">
         <div>
           <label>ID do item</label>
-          <input type="text" id="idItem" placeholder="Ex: 99999999999">
+          <input type="text" id="idItem" placeholder="Ex: 23093716368">
         </div>
 
         <div>
-          <label>Imagem</label>
-          <input type="text" id="imagem" placeholder="Ex: 002.webp">
+          <label>Nome da imagem</label>
+          <input type="text" id="imagemNome" placeholder="Ex: 002.webp">
         </div>
       </div>
 
@@ -175,29 +235,94 @@
       <input type="text" id="comissao" value="R$0,00">
 
       <label>Link do produto</label>
-      <input type="text" id="linkProduto" placeholder="Pode colar o link normal da Shopee">
+      <input type="text" id="linkProduto" placeholder="Link normal do produto na Shopee">
 
       <label>Link da oferta / afiliado</label>
       <input type="text" id="linkOferta" placeholder="Ex: https://s.shopee.com.br/6py916hRlS">
 
-      <button onclick="gerarLinha()">Gerar linha CSV</button>
-      <button onclick="copiarLinha()">Copiar linha</button>
-      <button onclick="limparCampos()">Limpar</button>
+      <label>Foto do produto</label>
+      <input type="file" id="imagemArquivo" accept="image/*" onchange="mostrarPreviewImagem()">
+
+      <img id="previewImagem" class="preview" alt="Preview da imagem">
+
+      <button onclick="sugerirProximaImagem()" class="btn-secundario">
+        Sugerir próximo nome
+      </button>
+
+      <button onclick="adicionarProduto()">
+        Adicionar produto ao CSV
+      </button>
+
+      <button onclick="limparCampos()" class="btn-secundario">
+        Limpar campos
+      </button>
 
       <div class="aviso">
-        Importante: o link de afiliado não será alterado. Ele será colocado exatamente como você colar.
+        O link de afiliado será colocado exatamente como você colar.
+        O site público continuará mostrando só imagem, nome e botão.
       </div>
-
     </div>
 
     <div class="box">
-      <label>Linha pronta para colar no ofertas.csv</label>
-      <div id="resultado" class="resultado"></div>
+      <h2>3. Baixar arquivos prontos</h2>
+
+      <button onclick="baixarCSVAtualizado()">
+        Baixar ofertas.csv atualizado
+      </button>
+
+      <button onclick="baixarImagemRenomeada()">
+        Baixar imagem com nome escolhido
+      </button>
+
+      <div id="statusFinal" class="status">
+        Depois de adicionar o produto, baixe os arquivos e envie para o GitHub.
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>Prévia da última linha adicionada</h2>
+
+      <div id="resultado" class="resultado">
+        Nenhum produto adicionado ainda.
+      </div>
     </div>
 
   </div>
 
   <script>
+    let csvOriginal = "";
+    let csvAtualizado = "";
+    let linhasCSV = [];
+    let ultimaLinhaAdicionada = "";
+
+    function carregarCSV() {
+      const arquivo = document.getElementById("arquivoCSV").files[0];
+      const statusCSV = document.getElementById("statusCSV");
+
+      if (!arquivo) {
+        alert("Selecione o arquivo ofertas.csv primeiro.");
+        return;
+      }
+
+      const leitor = new FileReader();
+
+      leitor.onload = function (evento) {
+        csvOriginal = evento.target.result;
+        csvAtualizado = csvOriginal.trim();
+        linhasCSV = csvAtualizado.split(/\r?\n/);
+
+        statusCSV.innerHTML = `
+          <span class="ok">CSV carregado com sucesso.</span><br>
+          Total de linhas: ${linhasCSV.length}<br>
+          Produtos cadastrados: ${Math.max(linhasCSV.length - 1, 0)}
+        `;
+
+        sugerirProximaImagem();
+      };
+
+      leitor.readAsText(arquivo, "UTF-8");
+    }
+
     function protegerCSV(valor) {
       if (!valor) {
         return "";
@@ -213,7 +338,12 @@
       return valor;
     }
 
-    function gerarLinha() {
+    function adicionarProduto() {
+      if (!csvAtualizado) {
+        alert("Carregue o ofertas.csv antes.");
+        return;
+      }
+
       const idItem = document.getElementById("idItem").value.trim() || Date.now();
       const nomeItem = document.getElementById("nomeItem").value.trim();
       const preco = document.getElementById("preco").value.trim();
@@ -223,7 +353,7 @@
       const comissao = document.getElementById("comissao").value.trim();
       const linkProduto = document.getElementById("linkProduto").value.trim();
       const linkOferta = document.getElementById("linkOferta").value.trim();
-      const imagem = document.getElementById("imagem").value.trim();
+      const imagemNome = document.getElementById("imagemNome").value.trim();
 
       if (!nomeItem) {
         alert("Coloque o nome do produto.");
@@ -235,12 +365,12 @@
         return;
       }
 
-      if (!imagem) {
+      if (!imagemNome) {
         alert("Coloque o nome da imagem, exemplo: 002.webp");
         return;
       }
 
-      const linha = [
+      const novaLinha = [
         protegerCSV(idItem),
         protegerCSV(nomeItem),
         protegerCSV(preco),
@@ -250,23 +380,98 @@
         protegerCSV(comissao),
         protegerCSV(linkProduto || "https://shopee.com.br/"),
         protegerCSV(linkOferta),
-        protegerCSV(imagem)
+        protegerCSV(imagemNome)
       ].join(",");
 
-      document.getElementById("resultado").textContent = linha;
+      csvAtualizado = csvAtualizado.trim() + "\n" + novaLinha;
+      linhasCSV = csvAtualizado.split(/\r?\n/);
+      ultimaLinhaAdicionada = novaLinha;
+
+      document.getElementById("resultado").textContent = novaLinha;
+
+      document.getElementById("statusFinal").innerHTML = `
+        <span class="ok">Produto adicionado ao CSV temporário.</span><br>
+        Agora clique em <strong>Baixar ofertas.csv atualizado</strong>.<br>
+        Depois clique em <strong>Baixar imagem com nome escolhido</strong>.
+      `;
+
+      alert("Produto adicionado ao CSV. Agora baixe o CSV atualizado.");
     }
 
-    function copiarLinha() {
-      const resultado = document.getElementById("resultado").textContent;
-
-      if (!resultado) {
-        alert("Gere uma linha primeiro.");
+    function baixarCSVAtualizado() {
+      if (!csvAtualizado) {
+        alert("Carregue e atualize o CSV primeiro.");
         return;
       }
 
-      navigator.clipboard.writeText(resultado).then(() => {
-        alert("Linha copiada!");
+      const blob = new Blob([csvAtualizado + "\n"], {
+        type: "text/csv;charset=utf-8"
       });
+
+      baixarArquivo(blob, "ofertas.csv");
+    }
+
+    function mostrarPreviewImagem() {
+      const arquivoImagem = document.getElementById("imagemArquivo").files[0];
+      const preview = document.getElementById("previewImagem");
+
+      if (!arquivoImagem) {
+        preview.style.display = "none";
+        return;
+      }
+
+      const url = URL.createObjectURL(arquivoImagem);
+
+      preview.src = url;
+      preview.style.display = "block";
+    }
+
+    function baixarImagemRenomeada() {
+      const arquivoImagem = document.getElementById("imagemArquivo").files[0];
+      const imagemNome = document.getElementById("imagemNome").value.trim();
+
+      if (!arquivoImagem) {
+        alert("Escolha a foto do produto primeiro.");
+        return;
+      }
+
+      if (!imagemNome) {
+        alert("Coloque o nome da imagem, exemplo: 002.webp");
+        return;
+      }
+
+      const blob = new Blob([arquivoImagem], {
+        type: arquivoImagem.type
+      });
+
+      baixarArquivo(blob, imagemNome);
+    }
+
+    function baixarArquivo(blob, nomeArquivo) {
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+
+      link.href = url;
+      link.download = nomeArquivo;
+
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
+    }
+
+    function sugerirProximaImagem() {
+      let numero = 1;
+
+      if (linhasCSV.length > 1) {
+        numero = linhasCSV.length;
+      }
+
+      const nomeSugerido = String(numero).padStart(3, "0") + ".webp";
+
+      document.getElementById("imagemNome").value = nomeSugerido;
     }
 
     function limparCampos() {
@@ -279,8 +484,11 @@
       document.getElementById("comissao").value = "R$0,00";
       document.getElementById("linkProduto").value = "";
       document.getElementById("linkOferta").value = "";
-      document.getElementById("imagem").value = "";
-      document.getElementById("resultado").textContent = "";
+      document.getElementById("imagemArquivo").value = "";
+      document.getElementById("previewImagem").style.display = "none";
+      document.getElementById("resultado").textContent = "Nenhum produto adicionado ainda.";
+
+      sugerirProximaImagem();
     }
   </script>
 
