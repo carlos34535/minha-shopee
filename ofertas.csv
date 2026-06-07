@@ -1,18 +1,18 @@
-ID do item,Nome do item,Preço,Vendas,Nome da loja,Taxa de comissão,Comissão,Link do produto,Link da oferta,Imagem
-23093716368,KIT SHAMPOO V-FLOC CERA TOK FINAL VEXUS VONIXX PRETINHO VINTEX,"134,90",4mil+,Patron - Distribuidora VONNIX,12%,"R$16,19",https://shopee.com.br/product/1258744084/23093716368,https://s.shopee.com.br/6py3ZnhGG6,001.webp
-99999999999,Parafusadeira e Furadeira 48V Recarregável com 2 Baterias Maleta Kit Completo Bivolt Uso Doméstico e Profissional,"0,00",0,Shopee,0%,"R$0,00",https://s.shopee.com.br/6py916hRlS,https://s.shopee.com.br/6py916hRlS,002.webp
-58210085416,Removedor De Arranhões De Carro / Cera para Remover Arranhões / Pasta de Polimento,"0,00",0,Shopee,0%,"R$0,00",https://s.shopee.com.br/7pqhM5QeSb,https://s.shopee.com.br/7pqhM5QeSb,003.webp
-21729318140,Trava Antifurto para Volante de Carro - Bloqueio com Cinto de Segurança e 3 Chaves,"0,00",0,Shopee,0%,"R$0,00",https://s.shopee.com.br/6L1tZVHslZ,https://s.shopee.com.br/6L1tZVHslZ,004.webp
-23198093485,Caneta Reparadora De Pintura Tira Risco Luxcar De Carro Motos Diversas Cores,"109,90",4mil+,Patron - Distribuidora VONNIX,12%,"R$13,19",https://s.shopee.com.br/7KuQlfWOYg,https://s.shopee.com.br/7KuQlfWOYg,005.webp
-23194931193,KIT Câmera De Segurança WIFI Lâmpada Sem Fio full HD IP 360°Com Microfone 8177,"99,99",3mil+,SPLORO,10%,"R$10,00",https://s.shopee.com.br/5fmCntTWQC,https://s.shopee.com.br/5fmCntTWQC,006.webp
-58209990683,Central Multimídia 1 DIN 7” Retrátil Bluetooth GPS USB Câmera de Ré MP5 CarPlay,"0,00",0,Shopee,3%,"R$3,00",https://s.shopee.com.br/50WW0nkZ48,https://s.shopee.com.br/50WW0nkZ48,007.webp
-49603251115,Ganchos Traseiros Multifuncionais De Pele Sintética Para Assento De Carro Cabide Organizador Interno Oculto,"49,00",50mil+,Karseell Oficial,16%,"R$7,84",https://s.shopee.com.br/5VSmbxtvUQ,https://s.shopee.com.br/5VSmbxtvUQ,008.webp
-23798108173,Adesivo De Fibra De Carbono Para Carro Tira Protetora De Pasta DIY Filme À Prova D'água Espelho Lateral De Soleira,"103,97",6mil+,GHSPEÇAS,7%,"R$7,28",https://s.shopee.com.br/BRGGE3oXq,https://s.shopee.com.br/BRGGE3oXq,009.webp
-19016875290,Câmera Externa Ip a Prova D'água com Infravermelho Alarme Wifi Hd Sensor De Movimento yoosee / icsee,"107,99",60mil+,IMPORTADOS DO BRASIL,12%,"R$12,96",https://s.shopee.com.br/9fILZopqvA,https://s.shopee.com.br/9fILZopqvA,010.webp
-53155129182,Capa De Assento Universal De Couro PU Premium Para Carro 1 Peça Frontal Ou Conjunto Completo De Almofada Interior,"29,90",9mil+,EuroShop PT,7%,"R$2,09",https://s.shopee.com.br/2qS1RTxdAl,https://s.shopee.com.br/2qS1RTxdAl,011.webp
-58209882446,Tapete Bandeja TPE 5D Sob Medida Hyundai Creta 2022 2023 2024 2025 2026 Antiderrapante,"69,00",4mil+,Universo Cultural,18%,"R$12,42",https://s.shopee.com.br/6pyACugjBd,https://s.shopee.com.br/6pyACugjBd,012.webp
-22898095546,APLICADOR DE PRETINHO REDONDO COM CERDAS VILUSTRO,"159,90",10mil+,Patron - Distribuidora VONNIX,12%,"R$19,19",https://s.shopee.com.br/6AiTQISx83,https://s.shopee.com.br/6AiTQISx83,013.webp
-41178806100,Suporte Celular Magnético Veicular Universal Ar Condicionado,"31,96",6mil+,Latzi,28%,"R$8,95",https://s.shopee.com.br/7pqhPSucTj,https://s.shopee.com.br/7pqhPSucTj,014.webp
-20999662937,Bomba de Ar Digital Mini Calibrador Compressor de Pneus Carro Moto Bike Com Lanterna Led Portátil,"1,2mil",6mil+,LOJA EASY HOUSE,13%,"R$150,79",https://s.shopee.com.br/8fPoPGBFEw,https://s.shopee.com.br/8fPoPGBFEw,015.webp
-18499668742,Rastreador AirTag Smart Tag MFI Localizador GPS Mala Carro Moto Pet Criança Sem Limite de Distância,"179,99",4mil+,ClickComercioDigital,18%,"R$32,40",https://s.shopee.com.br/2BCKfRskyU,https://s.shopee.com.br/2BCKfRskyU,016.webp
-00000000018,KIT 2 Poltronas Mona Premium Conforto Máximo e Design Sofisticado para Ambientes Modernos,https://s.shopee.com.br/8V6OTwQdE7,https://s.shopee.com.br/8V6OTwQdE7,018.webp
+id,nome,link,imagem
+00000000001,KIT SHAMPOO V-FLOC CERA TOK FINAL VEXUS VONIXX PRETINHO VINTEX,https://s.shopee.com.br/6py3ZnhGG6,001.webp
+00000000002,Parafusadeira e Furadeira 48V Recarregável com 2 Baterias Maleta Kit Completo Bivolt Uso Doméstico e Profissional,https://s.shopee.com.br/6py916hRlS,002.webp
+00000000003,Removedor De Arranhões De Carro / Cera para Remover Arranhões / Pasta de Polimento,https://s.shopee.com.br/7pqhM5QeSb,003.webp
+00000000004,Trava Antifurto para Volante de Carro - Bloqueio com Cinto de Segurança e 3 Chaves,https://s.shopee.com.br/6L1tZVHslZ,004.webp
+00000000005,Caneta Reparadora De Pintura Tira Risco Luxcar De Carro Motos Diversas Cores,https://s.shopee.com.br/7KuQlfWOYg,005.webp
+00000000006,KIT Câmera De Segurança WIFI Lâmpada Sem Fio full HD IP 360°Com Microfone 8177,https://s.shopee.com.br/5fmCntTWQC,006.webp
+00000000007,Central Multimídia 1 DIN 7” Retrátil Bluetooth GPS USB Câmera de Ré MP5 CarPlay,https://s.shopee.com.br/50WW0nkZ48,007.webp
+00000000008,Ganchos Traseiros Multifuncionais De Pele Sintética Para Assento De Carro Cabide Organizador Interno Oculto,https://s.shopee.com.br/5VSmbxtvUQ,008.webp
+00000000009,Adesivo De Fibra De Carbono Para Carro Tira Protetora De Pasta DIY Filme À Prova D'água Espelho Lateral De Soleira,https://s.shopee.com.br/BRGGE3oXq,009.webp
+00000000010,Câmera Externa Ip a Prova D'água com Infravermelho Alarme Wifi Hd Sensor De Movimento yoosee / icsee,https://s.shopee.com.br/9fILZopqvA,010.webp
+00000000011,Capa De Assento Universal De Couro PU Premium Para Carro 1 Peça Frontal Ou Conjunto Completo De Almofada Interior,https://s.shopee.com.br/2qS1RTxdAl,011.webp
+00000000012,Tapete Bandeja TPE 5D Sob Medida Hyundai Creta 2022 2023 2024 2025 2026 Antiderrapante,https://s.shopee.com.br/6pyACugjBd,012.webp
+00000000013,APLICADOR DE PRETINHO REDONDO COM CERDAS VILUSTRO,https://s.shopee.com.br/6AiTQISx83,013.webp
+00000000014,Suporte Celular Magnético Veicular Universal Ar Condicionado,https://s.shopee.com.br/7pqhPSucTj,014.webp
+00000000015,Bomba de Ar Digital Mini Calibrador Compressor de Pneus Carro Moto Bike Com Lanterna Led Portátil,https://s.shopee.com.br/8fPoPGBFEw,015.webp
+00000000016,Rastreador AirTag Smart Tag MFI Localizador GPS Mala Carro Moto Pet Criança Sem Limite de Distância,https://s.shopee.com.br/2BCKfRskyU,016.webp
+00000000018,KIT 2 Poltronas Mona Premium Conforto Máximo e Design Sofisticado para Ambientes Modernos,https://s.shopee.com.br/8V6OTwQdE7,018.webp
