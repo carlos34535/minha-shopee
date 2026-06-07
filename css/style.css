@@ -1,35 +1,173 @@
-/* AJUSTES FINAIS DE REFINAMENTO */
+/* =========================
+   FAIXA WHATSAPP HERO
+========================= */
 
-.layout-produtos {
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 30px;
+.whatsapp-faixa {
+  margin: 24px auto 0;
+  max-width: 760px;
+  background: linear-gradient(90deg, rgba(37, 211, 102, 0.14), rgba(255, 106, 0, 0.10));
+  border: 1px solid #30313f;
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  text-align: left;
 }
 
-.banner-rotativo img {
-  height: 250px;
-  object-fit: cover;
+.whatsapp-faixa strong {
+  display: block;
+  color: #ffffff;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
-.box-whatsapp {
+.whatsapp-faixa span {
+  display: block;
+  color: #d6d7e0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.whatsapp-faixa-botoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.whatsapp-faixa-botoes a {
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 800;
+  padding: 11px 16px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.whatsapp-faixa-botoes a:hover {
+  background: #1ebe5d;
+}
+
+/* =========================
+   BOX DICA LATERAL
+========================= */
+
+.box-dica {
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 20px;
   padding: 18px;
 }
 
-.box-whatsapp h3::before {
-  content: "🔥 ";
+.box-dica h3 {
+  font-size: 17px;
+  color: #ffffff;
+  margin-bottom: 8px;
 }
 
-.produto-card:hover {
-  border-color: #ff9d00;
+.box-dica p {
+  color: #d6d7e0;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.titulo-area span {
-  margin-left: 12px;
+.box-dica strong {
+  color: #ff9d00;
 }
 
-.hero {
-  padding-top: 38px;
+/* =========================
+   BOTÃO WHATSAPP FLUTUANTE
+========================= */
+
+.whatsapp-flutuante {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 900;
+  padding: 14px 18px;
+  border-radius: 999px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
 }
 
-.produtos-section {
-  padding-top: 18px;
+.whatsapp-flutuante:hover {
+  background: #1ebe5d;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+.rodape {
+  background: #11121a;
+  border-top: 1px solid #20212b;
+  padding: 34px 0;
+}
+
+.rodape-conteudo {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 26px;
+  align-items: start;
+}
+
+.rodape h3 {
+  color: #ffffff;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.rodape p {
+  color: #d6d7e0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.aviso-afiliado {
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+/* =========================
+   RESPONSIVO EXTRA
+========================= */
+
+@media (max-width: 760px) {
+  .whatsapp-faixa {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .whatsapp-faixa-botoes {
+    justify-content: center;
+  }
+
+  .rodape-conteudo {
+    grid-template-columns: 1fr;
+  }
+
+  .whatsapp-flutuante {
+    right: 14px;
+    bottom: 14px;
+    padding: 13px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .whatsapp-faixa-botoes {
+    flex-direction: column;
+  }
+
+  .whatsapp-faixa-botoes a {
+    width: 100%;
+    text-align: center;
+  }
 }
