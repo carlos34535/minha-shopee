@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Painel de Produtos - Achadinhos</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #08090f;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #cfcfd8;
+      margin-bottom: 28px;
+    }
+
+    .box {
+      background: #15161f;
+      border: 1px solid #30313f;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: #08090f;
+      color: #ffffff;
+      border: 1px solid #30313f;
+      border-radius: 10px;
+      padding: 13px 14px;
+      font-size: 15px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    button {
+      background: #ff6a00;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background: #ff7b1a;
+    }
+
+    .resultado {
+      background: #08090f;
+      border: 1px solid #30313f;
+      border-radius: 12px;
+      padding: 16px;
+      color: #ffffff;
+      font-family: Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 80px;
+    }
+
+    .aviso {
+      color: #ff9d00;
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Painel rápido de produtos</h1>
+
+    <p>
+      Preencha os dados abaixo, gere a linha pronta e cole no arquivo ofertas.csv.
+    </p>
+
+    <div class="box">
+
+      <div class="grid">
+        <div>
+          <label>ID do item</label>
+          <input type="text" id="idItem" placeholder="Ex: 99999999999">
+        </div>
+
+        <div>
+          <label>Imagem</label>
+          <input type="text" id="imagem" placeholder="Ex: 002.webp">
+        </div>
+      </div>
+
+      <label>Nome do produto</label>
+      <input type="text" id="nomeItem" placeholder="Ex: Kit organizador para cozinha">
+
+      <div class="grid">
+        <div>
+          <label>Preço</label>
+          <input type="text" id="preco" value="0,00">
+        </div>
+
+        <div>
+          <label>Vendas</label>
+          <input type="text" id="vendas" value="0">
+        </div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Nome da loja</label>
+          <input type="text" id="nomeLoja" value="Shopee">
+        </div>
+
+        <div>
+          <label>Taxa de comissão</label>
+          <input type="text" id="taxaComissao" value="0%">
+        </div>
+      </div>
+
+      <label>Comissão</label>
+      <input type="text" id="comissao" value="R$0,00">
+
+      <label>Link do produto</label>
+      <input type="text" id="linkProduto" placeholder="Pode colar o link normal da Shopee">
+
+      <label>Link da oferta / afiliado</label>
+      <input type="text" id="linkOferta" placeholder="Ex: https://s.shopee.com.br/6py916hRlS">
+
+      <button onclick="gerarLinha()">Gerar linha CSV</button>
+      <button onclick="copiarLinha()">Copiar linha</button>
+      <button onclick="limparCampos()">Limpar</button>
+
+      <div class="aviso">
+        Importante: o link de afiliado não será alterado. Ele será colocado exatamente como você colar.
+      </div>
+
+    </div>
+
+    <div class="box">
+      <label>Linha pronta para colar no ofertas.csv</label>
+      <div id="resultado" class="resultado"></div>
+    </div>
+
+  </div>
+
+  <script>
+    function protegerCSV(valor) {
+      if (!valor) {
+        return "";
+      }
+
+      valor = String(valor).trim();
+
+      if (valor.includes(",") || valor.includes('"') || valor.includes("\n")) {
+        valor = valor.replaceAll('"', '""');
+        return `"${valor}"`;
+      }
+
+      return valor;
+    }
+
+    function gerarLinha() {
+      const idItem = document.getElementById("idItem").value.trim() || Date.now();
+      const nomeItem = document.getElementById("nomeItem").value.trim();
+      const preco = document.getElementById("preco").value.trim();
+      const vendas = document.getElementById("vendas").value.trim();
+      const nomeLoja = document.getElementById("nomeLoja").value.trim();
+      const taxaComissao = document.getElementById("taxaComissao").value.trim();
+      const comissao = document.getElementById("comissao").value.trim();
+      const linkProduto = document.getElementById("linkProduto").value.trim();
+      const linkOferta = document.getElementById("linkOferta").value.trim();
+      const imagem = document.getElementById("imagem").value.trim();
+
+      if (!nomeItem) {
+        alert("Coloque o nome do produto.");
+        return;
+      }
+
+      if (!linkOferta) {
+        alert("Coloque o link de afiliado/oferta.");
+        return;
+      }
+
+      if (!imagem) {
+        alert("Coloque o nome da imagem, exemplo: 002.webp");
+        return;
+      }
+
+      const linha = [
+        protegerCSV(idItem),
+        protegerCSV(nomeItem),
+        protegerCSV(preco),
+        protegerCSV(vendas),
+        protegerCSV(nomeLoja),
+        protegerCSV(taxaComissao),
+        protegerCSV(comissao),
+        protegerCSV(linkProduto || "https://shopee.com.br/"),
+        protegerCSV(linkOferta),
+        protegerCSV(imagem)
+      ].join(",");
+
+      document.getElementById("resultado").textContent = linha;
+    }
+
+    function copiarLinha() {
+      const resultado = document.getElementById("resultado").textContent;
+
+      if (!resultado) {
+        alert("Gere uma linha primeiro.");
+        return;
+      }
+
+      navigator.clipboard.writeText(resultado).then(() => {
+        alert("Linha copiada!");
+      });
+    }
+
+    function limparCampos() {
+      document.getElementById("idItem").value = "";
+      document.getElementById("nomeItem").value = "";
+      document.getElementById("preco").value = "0,00";
+      document.getElementById("vendas").value = "0";
+      document.getElementById("nomeLoja").value = "Shopee";
+      document.getElementById("taxaComissao").value = "0%";
+      document.getElementById("comissao").value = "R$0,00";
+      document.getElementById("linkProduto").value = "";
+      document.getElementById("linkOferta").value = "";
+      document.getElementById("imagem").value = "";
+      document.getElementById("resultado").textContent = "";
+    }
+  </script>
+
+</body>
+</html>
