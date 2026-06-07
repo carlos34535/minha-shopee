@@ -5,6 +5,10 @@ const campoBusca = document.getElementById("campoBusca");
 const contadorProdutos = document.getElementById("contadorProdutos");
 const botoesFiltro = document.querySelectorAll(".filtro");
 
+const timerHoras = document.getElementById("timerHoras");
+const timerMinutos = document.getElementById("timerMinutos");
+const timerSegundos = document.getElementById("timerSegundos");
+
 async function carregarProdutos() {
   try {
     listaProdutos.innerHTML = `
@@ -21,11 +25,7 @@ async function carregarProdutos() {
 
     const texto = await resposta.text();
 
-    console.log("CSV carregado:", texto);
-
     todosProdutos = converterCSVParaProdutos(texto);
-
-    console.log("Produtos convertidos:", todosProdutos);
 
     mostrarProdutos(todosProdutos);
 
@@ -134,14 +134,24 @@ function mostrarProdutos(produtos) {
       ? `./produtos/${produto.imagem}`
       : "./assets/logo.png";
 
+    const linkFinalShopee = produto.linkOferta && produto.linkOferta !== ""
+      ? produto.linkOferta
+      : produto.linkProduto;
+
     card.innerHTML = `
-      <a href="./produto.html?id=${produto.id}" class="produto-imagem-area">
+      <a href="./produto.html?id=${produto.id}" class="produto-imagem-area" title="Ver detalhes do produto">
         <img src="${imagemProduto}" alt="${produto.nome}">
       </a>
 
-      <h3>${produto.nome}</h3>
+      <span class="selo-card">🔥 Oferta de hoje</span>
 
-      <a href="./produto.html?id=${produto.id}" class="btn-oferta">
+      <h3>
+        <a href="./produto.html?id=${produto.id}" class="produto-titulo-link">
+          ${produto.nome}
+        </a>
+      </h3>
+
+      <a href="${linkFinalShopee}" target="_blank" rel="noopener noreferrer" class="btn-oferta">
         Ver oferta
       </a>
     `;
@@ -186,4 +196,36 @@ botoesFiltro.forEach(botao => {
   });
 });
 
+function iniciarTimerDiario() {
+  atualizarTimer();
+
+  setInterval(atualizarTimer, 1000);
+}
+
+function atualizarTimer() {
+  const agora = new Date();
+
+  const meiaNoite = new Date();
+  meiaNoite.setHours(24, 0, 0, 0);
+
+  const diferenca = meiaNoite - agora;
+
+  const horas = Math.floor(diferenca / (1000 * 60 * 60));
+  const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+  const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+  if (timerHoras) {
+    timerHoras.textContent = String(horas).padStart(2, "0");
+  }
+
+  if (timerMinutos) {
+    timerMinutos.textContent = String(minutos).padStart(2, "0");
+  }
+
+  if (timerSegundos) {
+    timerSegundos.textContent = String(segundos).padStart(2, "0");
+  }
+}
+
 carregarProdutos();
+iniciarTimerDiario();
