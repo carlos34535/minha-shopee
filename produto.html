@@ -58,13 +58,13 @@
         if (!idProduto) {
           produtoDetalhe.innerHTML = `
             <p style="color:white; font-size:18px;">
-              Produto não encontrado. Volte para a página inicial e clique em uma oferta.
+              Produto não encontrado.
             </p>
           `;
           return;
         }
 
-        const resposta = await fetch("./ofertas.csv?cache=" + Date.now());
+        const resposta = await fetch("./ofertas.csv?v=" + Date.now());
 
         if (!resposta.ok) {
           produtoDetalhe.innerHTML = `
@@ -86,7 +86,7 @@
         if (!produto) {
           produtoDetalhe.innerHTML = `
             <p style="color:white; font-size:18px;">
-              Produto não encontrado no CSV. ID recebido: ${idProduto}
+              Produto não encontrado no CSV.
             </p>
           `;
           return;
@@ -96,13 +96,9 @@
           ? "./produtos/" + produto.imagem
           : "./assets/logo.png";
 
-        const linkFinal = produto.linkOferta && produto.linkOferta !== ""
-          ? produto.linkOferta
-          : produto.linkProduto;
-
         produtoDetalhe.innerHTML = `
           <div class="produto-detalhe-img">
-            <img src="${imagemProduto}" alt="${produto.nome}">
+            <img src="${imagemProduto}" alt="${produto.nome}" onerror="this.onerror=null; this.src='./assets/logo.png';">
           </div>
 
           <div class="produto-detalhe-info">
@@ -113,7 +109,7 @@
               Clique no botão abaixo para acessar o produto.
             </p>
 
-            <a href="${linkFinal}" target="_blank" class="btn-grande">
+            <a href="${produto.link}" target="_blank" rel="noopener noreferrer" class="btn-grande">
               Ir para oferta
             </a>
           </div>
@@ -137,10 +133,6 @@
         return [];
       }
 
-      const cabecalho = separarLinhaCSV(linhas[0]).map(function (item) {
-        return item.replace("\ufeff", "").trim();
-      });
-
       const produtos = [];
 
       for (let i = 1; i < linhas.length; i++) {
@@ -152,18 +144,11 @@
 
         const valores = separarLinhaCSV(linha);
 
-        const produtoOriginal = {};
-
-        cabecalho.forEach(function (coluna, index) {
-          produtoOriginal[coluna] = valores[index] ? valores[index].trim() : "";
-        });
-
         produtos.push({
-          id: produtoOriginal["ID do item"] || i,
-          nome: produtoOriginal["Nome do item"] || "Produto sem nome",
-          imagem: produtoOriginal["Imagem"] || "",
-          linkProduto: produtoOriginal["Link do produto"] || "",
-          linkOferta: produtoOriginal["Link da oferta"] || ""
+          id: valores[0] ? valores[0].trim() : `produto${i}`,
+          nome: valores[1] ? valores[1].trim() : "Produto sem nome",
+          link: valores[2] ? valores[2].trim() : "#",
+          imagem: valores[3] ? valores[3].trim() : ""
         });
       }
 
