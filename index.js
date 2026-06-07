@@ -17,7 +17,7 @@ async function carregarProdutos() {
       </p>
     `;
 
-    const resposta = await fetch("./ofertas.csv?v=" + new Date().getTime());
+    const resposta = await fetch("./ofertas.csv?v=" + Date.now());
 
     if (!resposta.ok) {
       throw new Error("Não encontrei o arquivo ofertas.csv");
@@ -36,7 +36,7 @@ async function carregarProdutos() {
 
     listaProdutos.innerHTML = `
       <p style="color:white; font-size:18px;">
-        Erro ao carregar produtos. Verifique se o arquivo ofertas.csv está na pasta principal.
+        Erro ao carregar produtos. Confira o arquivo ofertas.csv.
       </p>
     `;
   }
@@ -49,10 +49,6 @@ function converterCSVParaProdutos(textoCSV) {
     return [];
   }
 
-  const cabecalho = separarLinhaCSV(linhas[0]).map(item => {
-    return item.replace("\ufeff", "").trim();
-  });
-
   const produtos = [];
 
   for (let i = 1; i < linhas.length; i++) {
@@ -64,18 +60,11 @@ function converterCSVParaProdutos(textoCSV) {
 
     const valores = separarLinhaCSV(linha);
 
-    const produtoOriginal = {};
-
-    cabecalho.forEach((coluna, index) => {
-      produtoOriginal[coluna] = valores[index] ? valores[index].trim() : "";
-    });
-
     const produto = {
-      id: produtoOriginal["ID do item"] || i,
-      nome: produtoOriginal["Nome do item"] || "Produto sem nome",
-      imagem: produtoOriginal["Imagem"] || "",
-      linkProduto: produtoOriginal["Link do produto"] || "",
-      linkOferta: produtoOriginal["Link da oferta"] || ""
+      id: valores[0] ? valores[0].trim() : `produto${i}`,
+      nome: valores[1] ? valores[1].trim() : "Produto sem nome",
+      link: valores[2] ? valores[2].trim() : "#",
+      imagem: valores[3] ? valores[3].trim() : ""
     };
 
     produtos.push(produto);
@@ -134,13 +123,9 @@ function mostrarProdutos(produtos) {
       ? `./produtos/${produto.imagem}`
       : "./assets/logo.png";
 
-    const linkFinalShopee = produto.linkOferta && produto.linkOferta !== ""
-      ? produto.linkOferta
-      : produto.linkProduto;
-
     card.innerHTML = `
       <a href="./produto.html?id=${produto.id}" class="produto-imagem-area" title="Ver detalhes do produto">
-        <img src="${imagemProduto}" alt="${produto.nome}">
+        <img src="${imagemProduto}" alt="${produto.nome}" onerror="this.onerror=null; this.src='./assets/logo.png';">
       </a>
 
       <span class="selo-card">🔥 Oferta de hoje</span>
@@ -151,7 +136,7 @@ function mostrarProdutos(produtos) {
         </a>
       </h3>
 
-      <a href="${linkFinalShopee}" target="_blank" rel="noopener noreferrer" class="btn-oferta">
+      <a href="${produto.link}" target="_blank" rel="noopener noreferrer" class="btn-oferta">
         Ver oferta
       </a>
     `;
@@ -198,7 +183,6 @@ botoesFiltro.forEach(botao => {
 
 function iniciarTimerDiario() {
   atualizarTimer();
-
   setInterval(atualizarTimer, 1000);
 }
 
@@ -214,17 +198,9 @@ function atualizarTimer() {
   const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
   const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-  if (timerHoras) {
-    timerHoras.textContent = String(horas).padStart(2, "0");
-  }
-
-  if (timerMinutos) {
-    timerMinutos.textContent = String(minutos).padStart(2, "0");
-  }
-
-  if (timerSegundos) {
-    timerSegundos.textContent = String(segundos).padStart(2, "0");
-  }
+  if (timerHoras) timerHoras.textContent = String(horas).padStart(2, "0");
+  if (timerMinutos) timerMinutos.textContent = String(minutos).padStart(2, "0");
+  if (timerSegundos) timerSegundos.textContent = String(segundos).padStart(2, "0");
 }
 
 carregarProdutos();
