@@ -1,82 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
+<section class="produtos-section">
+  <div class="container">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="layout-produtos">
 
-  <title>Achadinhos da Shopee</title>
-
-  <link rel="stylesheet" href="./css/style.css">
-</head>
-
-<body>
-
-  <header class="topo">
-    <div class="container topo-conteudo">
-
-      <a href="./index.html" class="logo-area">
-        <img src="./assets/logo.png" alt="Logo Achadinhos" class="logo-img">
-
-        <span class="logo-texto">
-          Achadinhos <strong>da Shopee</strong>
-        </span>
-      </a>
-
-      <div class="busca-area">
-        <input 
-          type="text" 
-          id="campoBusca" 
-          placeholder="Buscar produto..."
-        >
-      </div>
-
-    </div>
-  </header>
-
-  <main>
-
-    <section class="hero">
-      <div class="container">
-
-        <div class="selo">
-          🔥 Ofertas selecionadas
-        </div>
-
-        <h1>
-          Encontre os melhores <span>achadinhos</span>
-        </h1>
-
-        <p>
-          Produtos selecionados para você economizar mais.
-        </p>
-
-        <div class="timer-box">
-          <span class="timer-label">Ofertas de hoje acabam em:</span>
-
-          <div class="timer-numeros">
-            <div>
-              <strong id="timerHoras">00</strong>
-              <small>Horas</small>
-            </div>
-
-            <div>
-              <strong id="timerMinutos">00</strong>
-              <small>Min</small>
-            </div>
-
-            <div>
-              <strong id="timerSegundos">00</strong>
-              <small>Seg</small>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="produtos-section">
-      <div class="container">
+      <div class="area-produtos">
 
         <div class="titulo-area">
           <h2>Produtos em destaque</h2>
@@ -94,11 +21,45 @@
         </div>
 
       </div>
-    </section>
 
-  </main>
+      <aside class="sidebar-anuncios">
 
-  <script src="./index.js"></script>
+        <div class="box-whatsapp">
+          <h3>Entre nos grupos de ofertas</h3>
+          <p>Receba achadinhos direto no WhatsApp.</p>
 
-</body>
-</html>
+          <a 
+            href="https://chat.whatsapp.com/G05rgFXfTZTGRslliZLnrg" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-whatsapp"
+          >
+            Grupo Shopee 1
+          </a>
+
+          <a 
+            href="https://chat.whatsapp.com/CCu6XOqxsOuIeBPNhq0qtN" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-whatsapp"
+          >
+            Grupo Shopee 2
+          </a>
+        </div>
+
+        <a 
+          href="https://s.shopee.com.br/3LOILIpI2B" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="banner-rotativo"
+        >
+          <span class="tag-anuncio">Publicidade</span>
+          <img id="bannerShopee" src="./ads/001.webp" alt="Oferta Shopee">
+        </a>
+
+      </aside>
+
+    </div>
+
+  </div>
+</section>
