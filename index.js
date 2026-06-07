@@ -9,6 +9,10 @@ const timerHoras = document.getElementById("timerHoras");
 const timerMinutos = document.getElementById("timerMinutos");
 const timerSegundos = document.getElementById("timerSegundos");
 
+/* =========================
+   CARREGAR PRODUTOS
+========================= */
+
 async function carregarProdutos() {
   try {
     listaProdutos.innerHTML = `
@@ -42,6 +46,12 @@ async function carregarProdutos() {
   }
 }
 
+/* =========================
+   CONVERTER CSV SIMPLES
+   Formato:
+   id,nome,link,imagem
+========================= */
+
 function converterCSVParaProdutos(textoCSV) {
   const linhas = textoCSV.trim().split(/\r?\n/);
 
@@ -73,6 +83,10 @@ function converterCSVParaProdutos(textoCSV) {
   return produtos;
 }
 
+/* =========================
+   SEPARAR LINHA CSV
+========================= */
+
 function separarLinhaCSV(linha) {
   const resultado = [];
   let valorAtual = "";
@@ -100,6 +114,10 @@ function separarLinhaCSV(linha) {
   return resultado;
 }
 
+/* =========================
+   MOSTRAR PRODUTOS
+========================= */
+
 function mostrarProdutos(produtos) {
   listaProdutos.innerHTML = "";
 
@@ -125,7 +143,11 @@ function mostrarProdutos(produtos) {
 
     card.innerHTML = `
       <a href="./produto.html?id=${produto.id}" class="produto-imagem-area" title="Ver detalhes do produto">
-        <img src="${imagemProduto}" alt="${produto.nome}" onerror="this.onerror=null; this.src='./assets/logo.png';">
+        <img 
+          src="${imagemProduto}" 
+          alt="${produto.nome}" 
+          onerror="this.onerror=null; this.src='./assets/logo.png';"
+        >
       </a>
 
       <span class="selo-card">🔥 Oferta de hoje</span>
@@ -145,6 +167,10 @@ function mostrarProdutos(produtos) {
   });
 }
 
+/* =========================
+   BUSCA
+========================= */
+
 function buscarProdutos() {
   const termo = campoBusca.value.toLowerCase().trim();
 
@@ -158,6 +184,10 @@ function buscarProdutos() {
 if (campoBusca) {
   campoBusca.addEventListener("input", buscarProdutos);
 }
+
+/* =========================
+   FILTROS
+========================= */
 
 botoesFiltro.forEach(botao => {
   botao.addEventListener("click", () => {
@@ -181,6 +211,10 @@ botoesFiltro.forEach(botao => {
   });
 });
 
+/* =========================
+   TIMER DIÁRIO
+========================= */
+
 function iniciarTimerDiario() {
   atualizarTimer();
   setInterval(atualizarTimer, 1000);
@@ -198,10 +232,59 @@ function atualizarTimer() {
   const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
   const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
 
-  if (timerHoras) timerHoras.textContent = String(horas).padStart(2, "0");
-  if (timerMinutos) timerMinutos.textContent = String(minutos).padStart(2, "0");
-  if (timerSegundos) timerSegundos.textContent = String(segundos).padStart(2, "0");
+  if (timerHoras) {
+    timerHoras.textContent = String(horas).padStart(2, "0");
+  }
+
+  if (timerMinutos) {
+    timerMinutos.textContent = String(minutos).padStart(2, "0");
+  }
+
+  if (timerSegundos) {
+    timerSegundos.textContent = String(segundos).padStart(2, "0");
+  }
 }
+
+/* =========================
+   BANNER ROTATIVO LATERAL
+========================= */
+
+const imagensAnuncios = [
+  "./ads/001.webp",
+  "./ads/002.webp",
+  "./ads/003.webp",
+  "./ads/004.webp"
+];
+
+let anuncioAtual = 0;
+
+function iniciarBannerRotativo() {
+  const banner = document.getElementById("bannerShopee");
+
+  if (!banner) {
+    return;
+  }
+
+  banner.onerror = function () {
+    this.onerror = null;
+    this.src = "./assets/logo.png";
+  };
+
+  setInterval(() => {
+    anuncioAtual++;
+
+    if (anuncioAtual >= imagensAnuncios.length) {
+      anuncioAtual = 0;
+    }
+
+    banner.src = imagensAnuncios[anuncioAtual];
+  }, 4000);
+}
+
+/* =========================
+   INICIAR SITE
+========================= */
 
 carregarProdutos();
 iniciarTimerDiario();
+iniciarBannerRotativo();
