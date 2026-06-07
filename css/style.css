@@ -1,123 +1,479 @@
-/* =========================
-   AJUSTE VISUAL PREMIUM
-========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #08090f;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* TOPO */
+
+.topo {
+  width: 100%;
+  background: #11121a;
+  border-bottom: 1px solid #20212b;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.topo-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.logo-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.logo-texto {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.logo-texto strong {
+  color: #ff9d00;
+}
+
+.busca-area {
+  flex: 1;
+  max-width: 520px;
+}
+
+.busca-area input {
+  width: 100%;
+  height: 48px;
+  background: #10111a;
+  color: #ffffff;
+  border: 1px solid #2c2e3a;
+  border-radius: 999px;
+  padding: 0 22px;
+  font-size: 15px;
+  outline: none;
+}
+
+.busca-area input::placeholder {
+  color: #9b9ca8;
+}
+
+/* HERO */
 
 .hero {
-  padding: 42px 0 34px;
+  padding: 46px 0 38px;
+  text-align: center;
   background:
-    radial-gradient(circle at center top, rgba(255, 106, 0, 0.08), transparent 38%),
+    radial-gradient(circle at center top, rgba(255, 106, 0, 0.10), transparent 36%),
     linear-gradient(180deg, #0d0e16 0%, #08090f 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.selo {
+  display: inline-block;
+  background: #4a2504;
+  color: #ff9d00;
+  padding: 9px 22px;
+  border-radius: 50px;
+  font-size: 14px;
+  margin-bottom: 18px;
 }
 
 .hero h1 {
-  font-size: 38px;
-  letter-spacing: 0.5px;
+  font-size: 40px;
+  line-height: 1.1;
+  margin: 0 auto 14px;
+  max-width: 780px;
+  color: #ffffff;
 }
 
-.timer-box {
-  margin-top: 24px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+.hero h1 span {
+  color: #ff9d00;
 }
 
-.produtos-section {
-  padding-top: 42px;
-}
-
-.layout-produtos {
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 26px;
-}
-
-.titulo-area {
-  align-items: flex-end;
-}
-
-.grid-produtos {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.produto-card {
-  min-height: 390px;
-  border-radius: 20px;
-  padding: 14px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.035), transparent 30%),
-    #15161f;
-}
-
-.produto-imagem-area {
-  height: 190px;
-  border-radius: 16px;
-  background: #ffffff;
-}
-
-.produto-card h3 {
-  font-size: 15px;
-  line-height: 1.35;
-  min-height: 62px;
-}
-
-.btn-oferta {
-  border-radius: 14px;
-  padding: 14px 16px;
+.hero p {
+  color: #d6d7e0;
   font-size: 16px;
 }
 
-.sidebar-anuncios {
-  top: 96px;
+/* TIMER */
+
+.timer-box {
+  margin: 26px auto 0;
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 18px;
+  padding: 16px 18px;
+  max-width: 380px;
 }
 
-.box-whatsapp {
-  background:
-    linear-gradient(180deg, rgba(37, 211, 102, 0.08), transparent 45%),
-    #15161f;
-  border-radius: 20px;
+.timer-label {
+  display: block;
+  color: #d6d7e0;
+  font-size: 14px;
+  margin-bottom: 12px;
 }
 
-.box-whatsapp h3 {
-  font-size: 17px;
+.timer-numeros {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
-.btn-whatsapp {
-  background: #20c764;
-  border-radius: 14px;
+.timer-numeros div {
+  background: #08090f;
+  border: 1px solid #30313f;
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 78px;
 }
 
-.banner-rotativo {
-  min-height: auto;
-  border-radius: 20px;
+.timer-numeros strong {
+  display: block;
+  font-size: 26px;
+  color: #ff9d00;
+  line-height: 1;
 }
 
-.banner-rotativo img {
-  height: 300px;
-  object-fit: cover;
+.timer-numeros small {
+  display: block;
+  color: #ffffff;
+  font-size: 12px;
+  margin-top: 6px;
 }
 
-.tag-anuncio {
-  background: #ff6a00;
-  color: #fff;
+/* PRODUTOS */
+
+.produtos-section {
+  padding: 42px 0 80px;
 }
 
-/* deixa o contador mais discreto */
+.layout-produtos {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 34px;
+  align-items: start;
+}
+
+.area-produtos {
+  min-width: 0;
+}
+
+.titulo-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.titulo-area h2 {
+  font-size: 26px;
+  color: #ffffff;
+}
+
 .titulo-area span {
   background: #15161f;
   border: 1px solid #30313f;
+  color: #d6d7e0;
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 13px;
 }
 
-/* mobile */
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.filtro {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #30313f;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.filtro.ativo {
+  background: #ff6a00;
+  border-color: #ff6a00;
+}
+
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.produto-card {
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  min-height: 390px;
+  transition: 0.2s ease;
+}
+
+.produto-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff6a00;
+}
+
+.produto-imagem-area {
+  width: 100%;
+  height: 190px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.produto-imagem-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.selo-card {
+  display: inline-block;
+  background: #4a2504;
+  color: #ff9d00;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.produto-card h3 {
+  font-size: 15px;
+  line-height: 1.35;
+  color: #ffffff;
+  margin-bottom: 14px;
+  min-height: 62px;
+}
+
+.produto-titulo-link {
+  color: #ffffff;
+}
+
+.produto-titulo-link:hover {
+  color: #ff9d00;
+}
+
+.btn-oferta {
+  background: #ff6a00;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 800;
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-top: auto;
+  display: block;
+}
+
+.btn-oferta:hover {
+  background: #ff7b1a;
+}
+
+/* SIDEBAR */
+
+.sidebar-anuncios {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.box-whatsapp {
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.box-whatsapp h3 {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.box-whatsapp p {
+  color: #d6d7e0;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.btn-whatsapp {
+  display: block;
+  background: #25d366;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  padding: 13px 14px;
+  border-radius: 14px;
+  margin-top: 10px;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+}
+
+.banner-rotativo {
+  position: relative;
+  display: block;
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 20px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.banner-rotativo img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.tag-anuncio {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: #ff6a00;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 9px;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+/* PÁGINA DO PRODUTO */
+
+.produto-detalhe-section {
+  padding: 50px 0 80px;
+}
+
+.voltar {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #ff9d00;
+  font-weight: 700;
+}
+
+.produto-detalhe {
+  background: #15161f;
+  border: 1px solid #30313f;
+  border-radius: 18px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 34px;
+  align-items: center;
+}
+
+.produto-detalhe-img {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.produto-detalhe-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.produto-detalhe-info h1 {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+
+.produto-detalhe-info p {
+  color: #d6d7e0;
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.btn-grande {
+  display: inline-block;
+  background: #ff6a00;
+  color: #ffffff;
+  font-weight: 900;
+  padding: 16px 28px;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+/* RESPONSIVO */
+
 @media (max-width: 1100px) {
   .layout-produtos {
     grid-template-columns: 1fr;
   }
 
   .sidebar-anuncios {
-    grid-template-columns: 1fr 1fr;
+    position: static;
     display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 
   .banner-rotativo img {
@@ -125,17 +481,38 @@
   }
 }
 
+@media (max-width: 900px) {
+  .grid-produtos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .produto-detalhe {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 760px) {
-  .hero {
-    padding: 34px 0 28px;
+  .topo-conteudo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .logo-area {
+    justify-content: center;
+  }
+
+  .busca-area {
+    max-width: 100%;
   }
 
   .hero h1 {
-    font-size: 30px;
+    font-size: 32px;
   }
 
-  .grid-produtos {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .titulo-area {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
   .sidebar-anuncios {
@@ -146,5 +523,17 @@
 @media (max-width: 520px) {
   .grid-produtos {
     grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 34px 0 28px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .produto-imagem-area {
+    height: 190px;
   }
 }
