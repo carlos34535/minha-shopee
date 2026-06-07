@@ -30,7 +30,9 @@ img {
   padding: 0 20px;
 }
 
-/* TOPO */
+/* =========================
+   TOPO
+========================= */
 
 .topo {
   width: 100%;
@@ -96,10 +98,12 @@ img {
   color: #9b9ca8;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero {
-  padding: 46px 0 38px;
+  padding: 44px 0 24px;
   text-align: center;
   background:
     radial-gradient(circle at center top, rgba(255, 106, 0, 0.10), transparent 36%),
@@ -133,10 +137,12 @@ img {
   font-size: 16px;
 }
 
-/* TIMER */
+/* =========================
+   TIMER
+========================= */
 
 .timer-box {
-  margin: 26px auto 0;
+  margin: 22px auto 0;
   background: #15161f;
   border: 1px solid #30313f;
   border-radius: 18px;
@@ -179,10 +185,12 @@ img {
   margin-top: 6px;
 }
 
-/* PRODUTOS */
+/* =========================
+   PRODUTOS
+========================= */
 
 .produtos-section {
-  padding: 42px 0 80px;
+  padding: 24px 0 80px;
 }
 
 .layout-produtos {
@@ -253,7 +261,7 @@ img {
   padding: 14px;
   display: flex;
   flex-direction: column;
-  min-height: 390px;
+  min-height: 370px;
   transition: 0.2s ease;
 }
 
@@ -264,7 +272,7 @@ img {
 
 .produto-imagem-area {
   width: 100%;
-  height: 190px;
+  height: 180px;
   background: #ffffff;
   border-radius: 16px;
   padding: 14px;
@@ -323,7 +331,9 @@ img {
   background: #ff7b1a;
 }
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar-anuncios {
   position: sticky;
@@ -337,7 +347,7 @@ img {
   background: #15161f;
   border: 1px solid #30313f;
   border-radius: 20px;
-  padding: 20px;
+  padding: 18px;
 }
 
 .box-whatsapp h3 {
@@ -380,7 +390,7 @@ img {
 
 .banner-rotativo img {
   width: 100%;
-  height: 300px;
+  height: 280px;
   object-fit: cover;
   border-radius: 14px;
 }
@@ -398,7 +408,9 @@ img {
   z-index: 2;
 }
 
-/* PÁGINA DO PRODUTO */
+/* =========================
+   PÁGINA DO PRODUTO
+========================= */
 
 .produto-detalhe-section {
   padding: 50px 0 80px;
@@ -463,7 +475,9 @@ img {
   font-size: 17px;
 }
 
-/* RESPONSIVO */
+/* =========================
+   RESPONSIVO
+========================= */
 
 @media (max-width: 1100px) {
   .layout-produtos {
