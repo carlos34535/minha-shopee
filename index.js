@@ -1,9 +1,17 @@
 let todosProdutos = [];
+let produtosFiltradosAtuais = [];
+
+let quantidadeVisivel = 12;
+const quantidadePorClique = 12;
+
+let categoriaAtual = "todos";
 
 const listaProdutos = document.getElementById("listaProdutos");
 const campoBusca = document.getElementById("campoBusca");
 const contadorProdutos = document.getElementById("contadorProdutos");
 const botoesFiltro = document.querySelectorAll(".filtro");
+const categoriasArea = document.getElementById("categoriasArea");
+const btnVerMais = document.getElementById("btnVerMais");
 
 const timerHoras = document.getElementById("timerHoras");
 const timerMinutos = document.getElementById("timerMinutos");
@@ -31,7 +39,13 @@ async function carregarProdutos() {
 
     todosProdutos = converterCSVParaProdutos(texto);
 
-    mostrarProdutos(todosProdutos);
+    produtosFiltradosAtuais = [...todosProdutos];
+
+    criarCategorias(todosProdutos);
+
+    quantidadeVisivel = 12;
+
+    mostrarProdutos(produtosFiltradosAtuais);
 
   } catch (erro) {
     console.error("Erro ao carregar produtos:", erro);
@@ -49,7 +63,7 @@ async function carregarProdutos() {
 /* =========================
    CONVERTER CSV SIMPLES
    Formato:
-   id,nome,link,imagem
+   id,nome,link,imagem,categoria
 ========================= */
 
 function converterCSVParaProdutos(textoCSV) {
@@ -74,7 +88,8 @@ function converterCSVParaProdutos(textoCSV) {
       id: valores[0] ? valores[0].trim() : `produto${i}`,
       nome: valores[1] ? valores[1].trim() : "Produto sem nome",
       link: valores[2] ? valores[2].trim() : "#",
-      imagem: valores[3] ? valores[3].trim() : ""
+      imagem: valores[3] ? valores[3].trim() : "",
+      categoria: valores[4] ? valores[4].trim() : "Outros"
     };
 
     produtos.push(produto);
@@ -115,6 +130,55 @@ function separarLinhaCSV(linha) {
 }
 
 /* =========================
+   CATEGORIAS
+========================= */
+
+function criarCategorias(produtos) {
+  if (!categoriasArea) {
+    return;
+  }
+
+  const categorias = produtos
+    .map(produto => produto.categoria || "Outros")
+    .filter(categoria => categoria.trim() !== "");
+
+  const categoriasUnicas = ["todos", ...new Set(categorias)];
+
+  categoriasArea.innerHTML = "";
+
+  categoriasUnicas.forEach(categoria => {
+    const botao = document.createElement("button");
+
+    botao.classList.add("categoria-btn");
+
+    if (categoria === "todos") {
+      botao.classList.add("ativo");
+      botao.textContent = "Todas categorias";
+    } else {
+      botao.textContent = categoria;
+    }
+
+    botao.setAttribute("data-categoria", categoria);
+
+    botao.addEventListener("click", () => {
+      document.querySelectorAll(".categoria-btn").forEach(item => {
+        item.classList.remove("ativo");
+      });
+
+      botao.classList.add("ativo");
+
+      categoriaAtual = categoria;
+
+      quantidadeVisivel = 12;
+
+      aplicarFiltros();
+    });
+
+    categoriasArea.appendChild(botao);
+  });
+}
+
+/* =========================
    MOSTRAR PRODUTOS
 ========================= */
 
@@ -126,13 +190,17 @@ function mostrarProdutos(produtos) {
   if (produtos.length === 0) {
     listaProdutos.innerHTML = `
       <p style="color:white; font-size:18px;">
-        Nenhum produto encontrado no CSV.
+        Nenhum produto encontrado.
       </p>
     `;
+
+    atualizarBotaoVerMais(produtos);
     return;
   }
 
-  produtos.forEach(produto => {
+  const produtosParaMostrar = produtos.slice(0, quantidadeVisivel);
+
+  produtosParaMostrar.forEach(produto => {
     const card = document.createElement("div");
 
     card.classList.add("produto-card");
@@ -165,20 +233,63 @@ function mostrarProdutos(produtos) {
 
     listaProdutos.appendChild(card);
   });
+
+  atualizarBotaoVerMais(produtos);
 }
 
 /* =========================
-   BUSCA
+   BOTÃO VER MAIS
 ========================= */
 
-function buscarProdutos() {
-  const termo = campoBusca.value.toLowerCase().trim();
+function atualizarBotaoVerMais(produtos) {
+  if (!btnVerMais) {
+    return;
+  }
 
-  const produtosFiltrados = todosProdutos.filter(produto => {
-    return produto.nome.toLowerCase().includes(termo);
+  if (quantidadeVisivel >= produtos.length) {
+    btnVerMais.style.display = "none";
+  } else {
+    btnVerMais.style.display = "inline-block";
+    btnVerMais.textContent = `Ver mais produtos`;
+  }
+}
+
+if (btnVerMais) {
+  btnVerMais.addEventListener("click", () => {
+    quantidadeVisivel += quantidadePorClique;
+    mostrarProdutos(produtosFiltradosAtuais);
   });
+}
 
-  mostrarProdutos(produtosFiltrados);
+/* =========================
+   BUSCA E FILTROS
+========================= */
+
+function aplicarFiltros() {
+  const termo = campoBusca ? campoBusca.value.toLowerCase().trim() : "";
+
+  let resultado = [...todosProdutos];
+
+  if (categoriaAtual !== "todos") {
+    resultado = resultado.filter(produto => {
+      return produto.categoria === categoriaAtual;
+    });
+  }
+
+  if (termo !== "") {
+    resultado = resultado.filter(produto => {
+      return produto.nome.toLowerCase().includes(termo);
+    });
+  }
+
+  produtosFiltradosAtuais = resultado;
+
+  mostrarProdutos(produtosFiltradosAtuais);
+}
+
+function buscarProdutos() {
+  quantidadeVisivel = 12;
+  aplicarFiltros();
 }
 
 if (campoBusca) {
@@ -186,7 +297,7 @@ if (campoBusca) {
 }
 
 /* =========================
-   FILTROS
+   FILTROS DE ORDEM
 ========================= */
 
 botoesFiltro.forEach(botao => {
@@ -197,17 +308,33 @@ botoesFiltro.forEach(botao => {
 
     const filtro = botao.getAttribute("data-filtro");
 
+    let base = [...todosProdutos];
+
+    if (categoriaAtual !== "todos") {
+      base = base.filter(produto => produto.categoria === categoriaAtual);
+    }
+
+    const termo = campoBusca ? campoBusca.value.toLowerCase().trim() : "";
+
+    if (termo !== "") {
+      base = base.filter(produto => produto.nome.toLowerCase().includes(termo));
+    }
+
     if (filtro === "todos") {
-      mostrarProdutos(todosProdutos);
+      produtosFiltradosAtuais = base;
     }
 
     if (filtro === "recentes") {
-      mostrarProdutos([...todosProdutos].reverse());
+      produtosFiltradosAtuais = [...base].reverse();
     }
 
     if (filtro === "clicados") {
-      mostrarProdutos(todosProdutos);
+      produtosFiltradosAtuais = base;
     }
+
+    quantidadeVisivel = 12;
+
+    mostrarProdutos(produtosFiltradosAtuais);
   });
 });
 
