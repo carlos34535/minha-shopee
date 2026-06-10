@@ -15,7 +15,7 @@ id,nome,link,imagem,categoria
 00000000014,Suporte Celular Magnetico Veicular,https://s.shopee.com.br/7pqhPSucTj,014.webp,Auto
 00000000015,Bomba de Ar Digital Compressor de Pneus Portatil,https://s.shopee.com.br/8fPoPGBFEw,015.webp,Auto
 00000000016,Rastreador Smart Tag GPS Tipo AirTag,https://s.shopee.com.br/2BCKfRskyU,016.webp,Auto
-00000000017,Poltrona Mona Retrô Moderna Estofada,https://s.shopee.com.br/7pqjf6qTra,017.webp,Casa
+00000000017,Poltrona Mona Retro Moderna Estofada,https://s.shopee.com.br/7pqjf6qTra,017.webp,Casa
 00000000018,Kit 2 Poltronas Mona Premium,https://s.shopee.com.br/8V6OTwQdE7,018.webp,Casa
 00000000019,Espelho Organico Corpo Inteiro 110x50cm,https://s.shopee.com.br/9UyvlMR0o9,019.webp,Casa
 00000000020,Kit Mondial Liquidificador Espremedor Batedeira,https://s.shopee.com.br/80A7yjHFoo,020.webp,Casa
@@ -44,7 +44,7 @@ id,nome,link,imagem,categoria
 00000000043,Organizador Prateleira Retratil,https://s.shopee.com.br/5ApxXjZRBU,043.webp,Casa
 00000000044,Organizador 2 Niveis com Bandeja,https://s.shopee.com.br/9pbn6PAiAc,044.webp,Casa
 00000000045,Capa Protetora Impermeavel Colchao,https://s.shopee.com.br/902g6wP7gX,045.webp,Casa
-00000000046,Organizador Multiuso Compacto,https://s.shopee.com.br/EXEMPLO,046.webp,Casa
+00000000046,Organizador Multiuso Compacto,https://s.shopee.com.br/4AxSp15WUt,046.webp,Casa
 00000000047,Kit 100 Capas para Alimentos,https://s.shopee.com.br/2qS3e4e3wm,047.webp,Cozinha
 00000000048,Maquina de Omelete Eletrica,https://s.shopee.com.br/9KfXO8C0bi,048.webp,Cozinha
 00000000049,Rimel Preto a Prova dagua,https://s.shopee.com.br/2VpDFenoxT,049.webp,Mulher
@@ -55,7 +55,7 @@ id,nome,link,imagem,categoria
 00000000054,Maquina de Boxe Musical Bluetooth com Luvas LED,https://s.shopee.com.br/2LVn5peQR0,054.webp,Treino
 00000000055,Jaqueta Puffer Masculina Inverno Premium,https://s.shopee.com.br/2qS3gdrvii,055.webp,Vestuario
 00000000056,Gloss Brilho Labial Sarah Beauty,https://s.shopee.com.br/1BJqp98Elj,056.webp,Mulher
-00000000057,Pulseira Coração Prata 925 Ponto de Luz,https://s.shopee.com.br/AKY5kAhxUc,057.webp,Vestuario
+00000000057,Pulseira Coracao Prata 925 Ponto de Luz,https://s.shopee.com.br/AKY5kAhxUc,057.webp,Vestuario
 00000000058,Mascara Para Cilios Melu Peel Off,https://s.shopee.com.br/7VDuN5oYEp,058.webp,Mulher
 00000000059,Oleo Serum Dove Bond Intense Repair 110ml,https://s.shopee.com.br/2qS4oeQJyB,059.webp,Mulher
 00000000060,Gel Comestivel Hot Flowers Morango 320ml,https://s.shopee.com.br/7KuUAyt8Ze,060.webp,Mulher
@@ -79,29 +79,25 @@ id,nome,link,imagem,categoria
 00000000078,Painel Ripado Decorativo MDF,https://s.shopee.com.br/5Apzcynzx1,078.webp,Casa
 00000000079,Jogo Panelas 8 Pecas Antiaderente,https://s.shopee.com.br/1gG7Sd3Z4U,079.webp,Cozinha
 00000000080,Espelho Lopazzi Retangular Moldura Aluminio 70x50,https://s.shopee.com.br/7fXKbj1F9j,080.webp,Casa
-00000000081,Prateleira Industrial Decorativa Suspensa Roma Freijó 180x20x70cm Metal,https://s.shopee.com.br/7KuUERQirQ,081.webp,Casa
-00000000082,Kit Halteres 6 Em 1 Musculação Até 15kg Ajustável Kettlebell Barra Anilha,https://s.shopee.com.br/20sxtzCxO1,082.webp,Treino
-00000000083,kit De Soquete De 46 Chaves Catraca Reversível Com Maleta De Transporte Caixa De Ferramentas,https://s.shopee.com.br/4AxSVMrQWp,085.webp,Ferramenta
-00000000084,Kit Caixa 27 Ferramentas Embralumi Profissional C/ Maleta Multiuso Fenda Philips,https://s.shopee.com.br/7pqksLOGUq,086.webp,Ferramenta
-00000000085,Jogo De Soquete Sextavado 1/2 Catraca 12 Peças 10 a 24mm com Extensão,https://s.shopee.com.br/5ApzhTOBu9,085.webp,Ferramenta
-00000000086,Kit de Ferramentas para Eletricista Durável com Mala de Lona Engrossa, Portátil Multifuncional para Manutenção e Carpi,https://s.shopee.com.br/5ApzhpXWOs,086.webp,Ferramenta
-00000000087,Kit Jogo Ferramentas 200 Peças Aço Carbono Completo com Maleta Organizadora Profissional,https://s.shopee.com.br/2LVoKgl5mB,087.webp,Ferramenta
-00000000088,Kit Alicate Crimpar Descascador 1200 Terminais Ilhós Tubular,https://s.shopee.com.br/50WZVcjH8a,088.webp,Ferramenta
-00000000089,Kit 5 Lâmpada Led Bulbo 9W 6500k Branco Frio E27 Avant,https://s.shopee.com.br/4LGsiROjxP,089.webp,Casa
-00000000090,Mini Luminária Poste 180 Cob Alta Potencia Econômica Solar sensor Cor Da Luz Branco-frio,https://s.shopee.com.br/4ftj758Mec,090.webp,Casa
-00000000091,Kit Para Churrasco Profissional Inox Chef Gourmet Utensílios 9 Peças,https://s.shopee.com.br/AKY5rYKmHr,091.webp,Cozinha
-00000000092,Vaporizador Mop Eletrico Para Piso 11 Em 1 Limpador Portatil,https://s.shopee.com.br/3LOLnXzprb,092.webp,Casa
-00000000093,Prateleira inferior da cama Sapateira simples Gaze de armazenamento multifuncional com polia para armazenamento de sapat,https://s.shopee.com.br/8V6RxXPWGR,093.webp,Casa
-00000000094,Planta Oliveira Arranjo Artificial Com Vaso Arvore Azeitona,https://s.shopee.com.br/2qS5DEmWhP,094.webp,Casa
-00000000095,Prateleira Metálica Autocolante Decorativa para Cozinha e para Temperos Perfumes e Decorações Dupla Face ou Parafusos,https://s.shopee.com.br/2qS5DKAuAi,095.webp,Cozinha
-00000000096,Quadro Decorativo Iluminação Led Lotus Decor Q16,https://s.shopee.com.br/9fIPLwjH7o,096.webp,Casa
-00000000097,Plataforma Giratoria 360 Graus Bandeja Pratos Mesa de Jantar Bebida Comida Casa Hotel,https://s.shopee.com.br/17tqGUm3V,097.webp,Cozinha
-00000000098,Toalheiro Térmico Elétrico 9 barras Electrowood Para 2 Toalhas de Banho Bivolt,https://s.shopee.com.br/17tqKpV52,098.webp,Casa
-00000000099,Placas Moduladas de Luxo Estofadas Para Base de Camas Box | Solteiro | Casal | Queen | King,https://s.shopee.com.br/7KuUZugoWj,099.webp,Casa
-00000000100,Ventilador Torre Oscilante Controle Remoto 3 Velocidades Desligamento Automático 127v 100cm,https://s.shopee.com.br/3qKcPYo3wo,100.webp,Casa
-00000000101,mall inline badgeEscrivaninha Em L 120cm Com 6 Gavetas Multimóveis Mp6030 Branco,https://s.shopee.com.br/2BCOQZfBkR,101.webp,Casa
-00000000102,Bandeja De Armazenamento De Vime Multicamadas-Organizador De Lanches De Frutas Para Sala De Estar,https://s.shopee.com.br/1LdHR8FXTH,102.webp,Cozinha
-
-
-
-
+00000000081,Prateleira Industrial Decorativa Suspensa Roma Freijo 180x20x70cm Metal,https://s.shopee.com.br/7KuUERQirQ,081.webp,Casa
+00000000082,Kit Halteres 6 Em 1 Musculacao Ate 15kg Ajustavel Kettlebell Barra Anilha,https://s.shopee.com.br/20sxtzCxO1,082.webp,Treino
+00000000083,Kit de Soquete 46 Pecas com Maleta,https://s.shopee.com.br/4AxSVMrQWp,083.webp,Ferramentas
+00000000084,Kit Caixa 27 Ferramentas Profissional com Maleta,https://s.shopee.com.br/7pqksLOGUq,084.webp,Ferramentas
+00000000085,Jogo de Soquete Sextavado 12 Pecas com Catraca,https://s.shopee.com.br/5ApzhTOBu9,085.webp,Ferramentas
+00000000086,Kit Ferramentas Eletricista Portatil com Bolsa,https://s.shopee.com.br/5ApzhpXWOs,086.webp,Ferramentas
+00000000087,Kit Ferramentas 200 Pecas Profissional com Maleta,https://s.shopee.com.br/2LVoKgl5mB,087.webp,Ferramentas
+00000000088,Kit Alicate Crimpar com Terminais Ilhos,https://s.shopee.com.br/50WZVcjH8a,088.webp,Ferramentas
+00000000089,Kit 5 Lampadas LED Bulbo 9W Branco Frio,https://s.shopee.com.br/4LGsiROjxP,089.webp,Casa
+00000000090,Mini Luminaria Poste Solar Sensor Branco Frio,https://s.shopee.com.br/4ftj758Mec,090.webp,Casa
+00000000091,Kit Churrasco Inox 9 Pecas,https://s.shopee.com.br/AKY5rYKmHr,091.webp,Cozinha
+00000000092,Vaporizador Mop Eletrico 11 em 1,https://s.shopee.com.br/3LOLnXzprb,092.webp,Casa
+00000000093,Organizador Sapateira Inferior de Cama com Rodas,https://s.shopee.com.br/8V6RxXPWGR,093.webp,Casa
+00000000094,Planta Artificial Oliveira com Vaso,https://s.shopee.com.br/2qS5DEmWhP,094.webp,Casa
+00000000095,Prateleira Metalica Autocolante Dupla,https://s.shopee.com.br/2qS5DKAuAi,095.webp,Cozinha
+00000000096,Quadro Decorativo LED Lotus,https://s.shopee.com.br/9fIPLwjH7o,096.webp,Casa
+00000000097,Bandeja Giratoria 360 Graus para Mesa,https://s.shopee.com.br/17tqGUm3V,097.webp,Cozinha
+00000000098,Toalheiro Termico Eletrico 9 Barras,https://s.shopee.com.br/17tqKpV52,098.webp,Casa
+00000000099,Placas Estofadas para Cabeceira de Cama,https://s.shopee.com.br/7KuUZugoWj,099.webp,Casa
+00000000100,Ventilador Torre Oscilante com Controle Remoto,https://s.shopee.com.br/3qKcPYo3wo,100.webp,Casa
+00000000101,Escrivaninha em L 120cm com 6 Gavetas Multimoveis,https://s.shopee.com.br/2BCOQZfBkR,101.webp,Casa
+00000000102,Bandeja Organizadora de Vime Multicamadas,https://s.shopee.com.br/1LdHR8FXTH,102.webp,Cozinha
