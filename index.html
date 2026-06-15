@@ -1,208 +1,165 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Produtos Shopee</title>
+  <meta charset="UTF-8">
 
-<style>
-body {
-  background: #0f0f0f;
-  color: #fff;
-  font-family: Arial;
-  padding: 20px;
-}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-h2 {
-  margin-bottom: 10px;
-}
+  <title>Achadinhos da Shopee</title>
 
-#categorias {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.btn-categoria {
-  background: #111;
-  color: #fff;
-  border: 1px solid #333;
-  padding: 8px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.btn-categoria:hover {
-  background: orange;
-}
-
-select {
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: #1a1a1a;
-  padding: 15px;
-  border-radius: 15px;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 10px;
-}
-
-.btn {
-  background: orange;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-</style>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 
-<h2>Produtos em destaque</h2>
+  <header class="topo">
+    <div class="container topo-conteudo">
 
-<!-- DROPDOWN -->
-<select id="categoriaSelect">
-  <option value="Todos">Todas categorias</option>
-</select>
+      <a href="./index.html" class="logo-area">
+        <img src="./assets/logo.png" alt="Logo Achadinhos" class="logo-img">
 
-<!-- BOTÕES -->
-<div id="categorias"></div>
+        <span class="logo-texto">
+          Achadinhos <strong>da Shopee</strong>
+        </span>
+      </a>
 
-<!-- PRODUTOS -->
-<div class="grid" id="produtos"></div>
-
-<script>
-
-// =====================
-// DADOS (EXEMPLO)
-// =====================
-const produtos = [
-  {nome:"Parafusadeira 48V", categoria:"Ferramentas", imagem:"002.webp", link:"#"},
-  {nome:"Removedor de Arranhões", categoria:"Auto", imagem:"003.webp", link:"#"},
-  {nome:"Camera Wifi", categoria:"Casa", imagem:"006.webp", link:"#"},
-  {nome:"Smartwatch", categoria:"Eletronicos", imagem:"107.webp", link:"#"},
-  {nome:"Kit Marmita", categoria:"Cozinha", imagem:"100.webp", link:"#"},
-  {nome:"Produto Bugado", categoria:"https://erro.com", imagem:"bug.webp", link:"#"}
-];
-
-
-// =====================
-// LIMPAR CATEGORIA
-// =====================
-function limparCategoria(cat) {
-  if (!cat) return "Outros";
-
-  cat = cat.trim();
-
-  if (cat.includes("http") || cat.includes(".webp")) {
-    return "Outros";
-  }
-
-  if (cat === "Csa") return "Casa";
-
-  return cat;
-}
-
-
-// =====================
-// GERAR CATEGORIAS
-// =====================
-const categorias = ["Todos", ...new Set(
-  produtos.map(p => limparCategoria(p.categoria))
-)];
-
-
-// =====================
-// DROPDOWN
-// =====================
-const select = document.getElementById("categoriaSelect");
-
-categorias.forEach(cat => {
-  const option = document.createElement("option");
-  option.value = cat;
-  option.textContent = cat;
-  select.appendChild(option);
-});
-
-select.onchange = () => filtrar(select.value);
-
-
-// =====================
-// BOTÕES
-// =====================
-const container = document.getElementById("categorias");
-
-categorias.forEach(cat => {
-  const btn = document.createElement("button");
-
-  btn.innerText = cat;
-  btn.className = "btn-categoria";
-
-  btn.onclick = () => filtrar(cat);
-
-  container.appendChild(btn);
-});
-
-
-// =====================
-// FILTRO
-// =====================
-function filtrar(categoria) {
-
-  let filtrados;
-
-  if (categoria === "Todos") {
-    filtrados = produtos;
-  } else {
-    filtrados = produtos.filter(p =>
-      limparCategoria(p.categoria) === categoria
-    );
-  }
-
-  renderizarProdutos(filtrados);
-}
-
-
-// =====================
-// RENDER
-// =====================
-function renderizarProdutos(lista) {
-  const div = document.getElementById("produtos");
-  div.innerHTML = "";
-
-  lista.forEach(p => {
-    div.innerHTML += `
-      <div class="card">
-        <img src="${p.imagem}">
-        <h4>${p.nome}</h4>
-        <button class="btn">Ver oferta</button>
+      <div class="busca-area">
+        <input 
+          type="text" 
+          id="campoBusca" 
+          placeholder="Buscar produto..."
+        >
       </div>
-    `;
-  });
-}
 
+    </div>
+  </header>
 
-// =====================
-// INICIAR
-// =====================
-renderizarProdutos(produtos);
+  <main>
 
-</script>
+    <section class="hero">
+      <div class="container">
+
+        <div class="selo">
+          🔥 Ofertas selecionadas
+        </div>
+
+        <h1>
+          Encontre os melhores <span>achadinhos</span>
+        </h1>
+
+        <p>
+          Produtos selecionados para você economizar mais.
+        </p>
+
+        <div class="timer-box">
+          <span class="timer-label">Ofertas de hoje acabam em:</span>
+
+          <div class="timer-numeros">
+            <div>
+              <strong id="timerHoras">00</strong>
+              <small>Horas</small>
+            </div>
+
+            <div>
+              <strong id="timerMinutos">00</strong>
+              <small>Min</small>
+            </div>
+
+            <div>
+              <strong id="timerSegundos">00</strong>
+              <small>Seg</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="produtos-section">
+      <div class="container">
+
+        <div class="layout-produtos">
+
+          <div class="area-produtos">
+
+            <div class="titulo-area">
+              <h2>Produtos em destaque</h2>
+              <span id="contadorProdutos">0 produtos</span>
+            </div>
+
+            <div class="filtros">
+              <button class="filtro ativo" data-filtro="todos">Todos</button>
+              <button class="filtro" data-filtro="recentes">Recentes</button>
+              <button class="filtro" data-filtro="clicados">Mais clicados</button>
+            </div>
+
+            <div class="categorias-area" id="categoriasArea">
+              <!-- Categorias aparecem aqui -->
+            </div>
+
+            <div id="listaProdutos" class="grid-produtos">
+              <!-- Produtos aparecem aqui -->
+            </div>
+
+            <div class="ver-mais-area">
+              <button id="btnVerMais" class="btn-ver-mais">
+                Ver mais produtos
+              </button>
+            </div>
+
+          </div>
+
+          <aside class="sidebar-anuncios">
+
+            <div class="box-whatsapp">
+              <h3>Entre nos grupos de ofertas</h3>
+              <p>Receba achadinhos direto no WhatsApp.</p>
+
+              <a 
+                href="https://chat.whatsapp.com/G05rgFXfTZTGRslliZLnrg" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-whatsapp"
+              >
+                Grupo Shopee 1
+              </a>
+
+              <a 
+                href="https://chat.whatsapp.com/CCu6XOqxsOuIeBPNhq0qtN" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="btn-whatsapp"
+              >
+                Grupo Shopee 2
+              </a>
+            </div>
+
+            <a 
+              href="https://s.shopee.com.br/3LOILIpI2B" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="banner-rotativo"
+            >
+              <span class="tag-anuncio">Publicidade</span>
+
+              <img 
+                id="bannerShopee" 
+                src="./ads/001.webp" 
+                alt="Oferta Shopee"
+                onerror="this.onerror=null; this.src='./assets/logo.png';"
+              >
+            </a>
+
+          </aside>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./index.js"></script>
 
 </body>
 </html>
