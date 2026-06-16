@@ -11,27 +11,30 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     body { font-family: 'Inter', system-ui, sans-serif; }
     
-    .category-pill {
-      transition: all 0.2s;
+    .category-btn {
+      transition: all 0.2s ease;
     }
-    .category-pill:hover {
+    .category-btn:hover {
       background-color: #f97316;
       color: white;
     }
+    .dropdown-list {
+      transition: all 0.3s ease;
+    }
   </style>
 </head>
-<body class="bg-[#0a0a0a] text-white">
+<body class="bg-[#0a0a0a] text-white min-h-screen">
 
   <!-- Header -->
   <header class="bg-black border-b border-zinc-800 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="https://via.placeholder.com/40" class="w-10 h-10 rounded-full" alt="logo">
+        <div class="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center text-xl font-bold">👑</div>
         <span class="text-2xl font-bold">Achadinhos da <span class="text-orange-500">Shopee</span></span>
       </div>
       <div class="flex-1 max-w-xl mx-8">
         <div class="relative">
-          <input type="text" class="w-full bg-zinc-900 border border-zinc-700 rounded-full py-3 px-5 pl-12 focus:outline-none focus:border-orange-500" placeholder="Buscar produto...">
+          <input type="text" class="w-full bg-zinc-900 border border-zinc-700 rounded-full py-3 px-5 pl-12 focus:outline-none focus:border-orange-500 text-sm" placeholder="Buscar produto...">
           <i class="fa-solid fa-magnifying-glass absolute left-5 top-3.5 text-zinc-500"></i>
         </div>
       </div>
@@ -55,44 +58,44 @@
     <h1 class="text-4xl font-bold text-center mb-2">Encontre os melhores <span class="text-orange-500">achadinhos</span></h1>
     <p class="text-center text-zinc-400 mb-10">Produtos selecionados para você economizar mais.</p>
 
-    <!-- Categorias Principais -->
-    <div class="flex flex-wrap gap-3 mb-6 justify-center">
-      <button class="category-pill bg-orange-500 text-white px-6 py-2 rounded-full font-medium">Todos</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Recentes</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Mais clicados</button>
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-3 justify-center mb-6">
+      <button class="category-btn bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium">Todos</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Recentes</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Mais clicados</button>
     </div>
 
-    <!-- Lista de Categorias -->
-    <div class="flex flex-wrap gap-3 mb-10 justify-center">
-      <button onclick="toggleCategoryList()" 
-              class="category-pill bg-orange-500 text-white px-6 py-2 rounded-full font-medium flex items-center gap-2">
+    <!-- Categorias -->
+    <div class="flex flex-wrap gap-3 justify-center items-center mb-10">
+      <button onclick="toggleDropdown()" 
+              class="category-btn bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium flex items-center gap-2">
         Todas as categorias
-        <i class="fa-solid fa-chevron-down text-sm" id="chevron"></i>
+        <i class="fa-solid fa-chevron-down transition-transform" id="chevron"></i>
       </button>
-      
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Auto</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Ferramentas</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Casa</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Cozinha</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Mulher</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Treino</button>
-      <button class="category-pill bg-zinc-800 hover:bg-zinc-700 px-6 py-2 rounded-full font-medium">Vestuário</button>
+
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Auto</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Ferramentas</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Casa</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Cozinha</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Mulher</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Treino</button>
+      <button class="category-btn bg-zinc-800 hover:bg-zinc-700 px-6 py-2.5 rounded-full font-medium">Vestuário</button>
     </div>
 
-    <!-- Lista Completa (escondida) -->
-    <div id="fullCategoryList" class="hidden bg-zinc-900 rounded-2xl p-6 mb-10">
-      <h3 class="text-xl font-bold mb-4 text-orange-500">Todas as Categorias</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🚗 Auto</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🔧 Ferramentas</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🏠 Casa</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🍳 Cozinha</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">👩 Mulher</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🏋️ Treino</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">👕 Vestuário</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🧸 Brinquedo</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">🎁 Presente</a>
-        <a href="#" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3">📱 Eletrônicos</a>
+    <!-- Lista completa (dropdown) -->
+    <div id="categoryDropdown" class="hidden bg-zinc-900 rounded-2xl p-6 mb-12 max-w-4xl mx-auto">
+      <h3 class="text-xl font-bold mb-4 text-orange-400">Todas as Categorias</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🚗 Auto</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🔧 Ferramentas</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🏠 Casa</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🍳 Cozinha</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">👩 Mulher</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🏋️ Treino</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">👕 Vestuário</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🧸 Brinquedo</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">🎁 Presente</a>
+        <a href="#" class="block px-5 py-4 bg-zinc-800 hover:bg-zinc-700 rounded-xl flex items-center gap-3 transition-colors">📱 Eletrônicos</a>
       </div>
     </div>
 
@@ -102,21 +105,21 @@
       <span class="text-zinc-500">135 produtos</span>
     </div>
 
-    <!-- Seus cards de produtos continuam iguais aqui -->
+    <!-- Seus cards de produtos vão aqui (continue colando eles) -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      <!-- Cole aqui seus cards existentes -->
+      <!-- Cole seus cards aqui -->
     </div>
 
   </div>
 
   <script>
-    function toggleCategoryList() {
-      const list = document.getElementById('fullCategoryList');
+    function toggleDropdown() {
+      const dropdown = document.getElementById('categoryDropdown');
       const chevron = document.getElementById('chevron');
       
-      list.classList.toggle('hidden');
+      dropdown.classList.toggle('hidden');
       
-      if (!list.classList.contains('hidden')) {
+      if (!dropdown.classList.contains('hidden')) {
         chevron.style.transform = 'rotate(180deg)';
       } else {
         chevron.style.transform = 'rotate(0deg)';
